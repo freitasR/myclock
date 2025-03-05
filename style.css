@@ -1,0 +1,219 @@
+body {
+    background-color: #1a1a2e;
+    color: #e6e6e6;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-size: 28px;
+}
+
+.clock-container {
+    background: #16213e;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.clock-container:hover {
+    transform: translateY(-5px);
+}
+
+.clock-display {
+    font-size: 72px;
+    font-weight: bold;
+    margin: 1rem 0;
+    color: #00fff5;
+    text-shadow: 0 0 10px rgba(0, 255, 245, 0.3);
+}
+
+.controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+button {
+    background-color: #0f3460;
+    color: #fff;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #533483;
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+button:disabled {
+    background-color: #2a2a3a;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.alarm-input {
+    background-color: #0f3460;
+    color: #fff;
+    border: 2px solid #533483;
+    border-radius: 10px;
+    padding: 0.8rem;
+    margin: 1rem 0;
+    font-size: 1rem;
+}
+
+.alarm-input:focus {
+    outline: none;
+    border-color: #00fff5;
+    box-shadow: 0 0 5px rgba(0, 255, 245, 0.3);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.stopwatch-container {
+    background: #16213e;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.stopwatch-display {
+    font-size: 48px;
+    font-weight: bold;
+    margin: 1rem 0;
+    color: #00fff5;
+    text-shadow: 0 0 10px rgba(0, 255, 245, 0.3);
+}
+
+.date-display {
+    font-size: 1.2rem;
+    color: #00fff5;
+    margin-top: 0.5rem;
+}
+
+.timezone-select {
+    background-color: #0f3460;
+    color: #fff;
+    border: 2px solid #533483;
+    border-radius: 10px;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    max-width: 300px;
+}
+
+.nav-buttons {
+    position: absolute;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-buttons button {
+    background-color: #0f3460;
+    color: #fff;
+    border: none;
+    padding: 0.8rem 1.2rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-buttons button:hover {
+    background-color: #533483;
+}
+
+/* Section container styling */
+.section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /* Push content lower to avoid overlapping with nav */
+    padding-top: 4rem;
+}
+
+@media (max-width: 480px) {
+    .clock-display {
+        font-size: 3rem;
+    }
+    
+    .controls {
+        flex-direction: column;
+    }
+    
+    button {
+        width: 100%;
+    }
+}
+
+.alarm-list {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.alarm-item {
+    background: #0f3460;
+    padding: 0.5rem;
+    border-radius: 5px;
+}
+
+.help-container {
+    background: #16213e;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+    margin: 2rem;
+}
+
+.help-content {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #e6e6e6;
+}
+
+.help-content h1, .help-content h2, .help-content h3 {
+    color: #00fff5;
+    margin-top: 1.5rem;
+}
+
+.help-content ul, .help-content ol {
+    padding-left: 2rem;
+    margin: 1rem 0;
+}
+
+/* Add styles for markdown content */
+.help-content code {
+    background: #0f3460;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+}
+
+.help-content p {
+    margin: 1rem 0;
+}

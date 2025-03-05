@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My vClock Clone</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Top navigation buttons -->
+  <div class="nav-buttons">
+    <button onclick="showSection('time')">Time</button>
+    <button onclick="showSection('stopwatch')">Stopwatch</button>
+    <button onclick="showSection('alarm')">Alarm</button>
+    <button onclick="showSection('help')">Help</button>
+  </div>
+
+  <!-- Sections -->
+  <div id="timeSection" class="section">
+    <div class="clock-container">
+      <select id="timezone" class="timezone-select"></select>
+      <h1 id="clock">00:00:00</h1>
+      <div id="date" class="date-display"></div>
+    </div>
+  </div>
+
+  <div id="stopwatchSection" class="section" style="display: none;">
+    <div class="stopwatch-container">
+      <h2>Stopwatch</h2>
+      <div id="stopwatch" class="stopwatch-display">00:00:00</div>
+      <div class="controls">
+        <button id="startStopButton" onclick="toggleStopwatch()">Start</button>
+        <button onclick="resetStopwatch()">Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="alarmSection" class="section" style="display: none;">
+    <div class="alarm-container">
+      <input type="time" id="alarmTime">
+      <button onclick="setAlarm()">Set Alarm</button>
+      <button onclick="stopAlarmAll()">Cancel All Alarms</button>
+      <button onclick="testSound()">Test Sound</button>
+      <button onclick="stopAlarm()" id="stopAlarm" style="display: none;">Stop Alarm</button>
+      <div id="alarmList" class="alarm-list">
+        <!-- Alarm list will display here -->
+      </div>
+    </div>
+  </div>
+
+  <div id="helpSection" class="section" style="display: none;">
+    <div class="help-container">
+      <div id="helpContent" class="help-content"></div>
+    </div>
+  </div>
+
+  <audio id="alarmSound" loop>
+    <source src="https://cdn.pixabay.com/audio/2021/08/04/audio_c668156e64.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
