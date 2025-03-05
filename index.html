@@ -2,62 +2,106 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>My vClock Clone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Online virtual clock with stopwatch and alarm features. Keep track of time across different time zones with this easy-to-use web clock.">
+  <meta name="keywords" content="virtual clock, online clock, stopwatch, alarm clock, time zones, web clock, digital clock, online timer">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="vClock">
+  
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:title" content="Virtual Clock - Online Clock with Stopwatch and Alarm">
+  <meta property="og:description" content="Free online virtual clock with stopwatch and alarm features. Track time across different time zones easily.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vclock.com">
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Virtual Clock - Online Clock with Stopwatch and Alarm">
+  <meta name="twitter:description" content="Free online virtual clock with stopwatch and alarm features. Track time across different time zones easily.">
+  
+  <title>Virtual Clock - Online Clock with Stopwatch and Alarm | vClock</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/svg+xml" href="favicon-svg.svg">
+  <link rel="canonical" href="https://vclock.com" />
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Virtual Clock",
+      "description": "Online virtual clock with stopwatch and alarm features. Keep track of time across different time zones with this easy-to-use web clock.",
+      "applicationCategory": "UtilityApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": ["Digital Clock", "Stopwatch", "Alarm", "Multiple Time Zones"]
+    }
+  </script>
 </head>
 <body>
-    <!-- Top navigation buttons -->
-  <div class="nav-buttons">
-    <button onclick="showSection('time')">Time</button>
-    <button onclick="showSection('stopwatch')">Stopwatch</button>
-    <button onclick="showSection('alarm')">Alarm</button>
-    <button onclick="showSection('help')">Help</button>
-  </div>
+    <header>
+      <nav class="nav-buttons" aria-label="Main navigation">
+        <button onclick="showSection('time')" aria-label="Show clock">Time</button>
+        <button onclick="showSection('stopwatch')" aria-label="Show stopwatch">Stopwatch</button>
+        <button onclick="showSection('alarm')" aria-label="Show alarm">Alarm</button>
+        <button onclick="showSection('help')" aria-label="Show help">Help</button>
+      </nav>
+    </header>
 
-  <!-- Sections -->
-  <div id="timeSection" class="section">
-    <div class="clock-container">
-      <select id="timezone" class="timezone-select"></select>
-      <h1 id="clock">00:00:00</h1>
-      <div id="date" class="date-display"></div>
-    </div>
-  </div>
+    <main>
+      <!-- Clock Section -->
+      <section id="timeSection" class="section">
+        <div class="clock-container">
+          <select id="timezone" class="timezone-select" aria-label="Select timezone"></select>
+          <h1 id="clock">00:00:00</h1>
+          <div id="date" class="date-display"></div>
+        </div>
+      </section>
 
-  <div id="stopwatchSection" class="section" style="display: none;">
-    <div class="stopwatch-container">
-      <h2>Stopwatch</h2>
-      <div id="stopwatch" class="stopwatch-display">00:00:00</div>
-      <div class="controls">
-        <button id="startStopButton" onclick="toggleStopwatch()">Start</button>
-        <button onclick="resetStopwatch()">Reset</button>
-      </div>
-    </div>
-  </div>
+      <!-- Stopwatch Section -->
+      <section id="stopwatchSection" class="section" style="display: none;">
+        <div class="stopwatch-container">
+          <h2>Stopwatch</h2>
+          <div id="stopwatch" class="stopwatch-display" aria-live="polite">00:00:00</div>
+          <div class="controls">
+            <button id="startStopButton" onclick="toggleStopwatch()" aria-label="Start or stop stopwatch">Start</button>
+            <button onclick="resetStopwatch()" aria-label="Reset stopwatch">Reset</button>
+          </div>
+        </div>
+      </section>
 
-  <div id="alarmSection" class="section" style="display: none;">
-    <div class="alarm-container">
-      <input type="time" id="alarmTime">
-      <button onclick="setAlarm()">Set Alarm</button>
-      <button onclick="stopAlarmAll()">Cancel All Alarms</button>
-      <button onclick="testSound()">Test Sound</button>
-      <button onclick="stopAlarm()" id="stopAlarm" style="display: none;">Stop Alarm</button>
-      <div id="alarmList" class="alarm-list">
-        <!-- Alarm list will display here -->
-      </div>
-    </div>
-  </div>
+      <!-- Alarm Section -->
+      <section id="alarmSection" class="section" style="display: none;">
+        <div class="alarm-container">
+          <input type="time" id="alarmTime" aria-label="Set alarm time">
+          <button onclick="setAlarm()" aria-label="Set new alarm">Set Alarm</button>
+          <button onclick="stopAlarmAll()" aria-label="Cancel all alarms">Cancel All Alarms</button>
+          <button onclick="testSound()" aria-label="Test alarm sound">Test Sound</button>
+          <button onclick="stopAlarm()" id="stopAlarm" style="display: none;" aria-label="Stop current alarm">Stop Alarm</button>
+          <div id="alarmList" class="alarm-list" aria-live="polite">
+            <!-- Alarm list will display here -->
+          </div>
+        </div>
+      </section>
 
-  <div id="helpSection" class="section" style="display: none;">
-    <div class="help-container">
-      <div id="helpContent" class="help-content"></div>
-    </div>
-  </div>
+      <!-- Help Section -->
+      <section id="helpSection" class="section" style="display: none;">
+        <div class="help-container">
+          <div id="helpContent" class="help-content"></div>
+        </div>
+      </section>
+    </main>
 
-  <audio id="alarmSound" loop>
-    <source src="https://cdn.pixabay.com/audio/2021/08/04/audio_c668156e64.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
+    <footer>
+      <audio id="alarmSound" loop>
+        <source src="https://cdn.pixabay.com/audio/2021/08/04/audio_c668156e64.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+    </footer>
 
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
