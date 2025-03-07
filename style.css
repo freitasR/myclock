@@ -17,6 +17,8 @@ body {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     text-align: center;
     transition: transform 0.3s ease;
+    width: 100%;
+    max-width: 600px;
 }
 
 .clock-container:hover {
@@ -109,15 +111,53 @@ button:disabled {
     margin-top: 0.5rem;
 }
 
-.timezone-select {
+.search-container {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto 1rem;
+}
+
+.city-search {
     background-color: #0f3460;
     color: #fff;
     border: 2px solid #533483;
     border-radius: 10px;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
+    padding: 0.8rem;
     width: 100%;
-    max-width: 300px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.city-search:focus {
+    outline: none;
+    border-color: #00fff5;
+    box-shadow: 0 0 5px rgba(0, 255, 245, 0.3);
+}
+
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #16213e;
+    border: 2px solid #533483;
+    border-radius: 0 0 10px 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.search-result-item {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.search-result-item:hover {
+    background-color: #0f3460;
 }
 
 .nav-buttons {
@@ -322,87 +362,5 @@ copyright a:hover {
     .secondary-nav ul {
         flex-direction: column;
         align-items: center;
-    }
-}
-
-/* Policy and Guide Pages */
-.policy-content,
-.terms-content,
-.guide-content {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background: #16213e;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
-
-.policy-content h1,
-.terms-content h1,
-.guide-content h1 {
-    color: #00fff5;
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-    text-align: center;
-}
-
-.policy-content h2,
-.terms-content h2,
-.guide-content h2 {
-    color: #00fff5;
-    font-size: 1.8rem;
-    margin: 2rem 0 1rem;
-}
-
-.policy-content p,
-.terms-content p,
-.guide-content p {
-    color: #e6e6e6;
-    line-height: 1.6;
-    margin: 1rem 0;
-    font-size: 1rem;
-}
-
-.policy-content ul,
-.terms-content ul,
-.guide-content ul {
-    color: #e6e6e6;
-    margin: 1rem 0;
-    padding-left: 2rem;
-    font-size: 1rem;
-}
-
-.policy-content li,
-.terms-content li,
-.guide-content li {
-    margin: 0.5rem 0;
-    line-height: 1.6;
-}
-
-.policy-content section,
-.terms-content section,
-.guide-content section {
-    margin: 2rem 0;
-}
-
-/* Responsive adjustments for policy and guide pages */
-@media (max-width: 768px) {
-    .policy-content,
-    .terms-content,
-    .guide-content {
-        margin: 1rem;
-        padding: 1.5rem;
-    }
-
-    .policy-content h1,
-    .terms-content h1,
-    .guide-content h1 {
-        font-size: 2rem;
-    }
-
-    .policy-content h2,
-    .terms-content h2,
-    .guide-content h2 {
-        font-size: 1.5rem;
     }
 }

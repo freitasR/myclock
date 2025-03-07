@@ -49,23 +49,17 @@
         <button onclick="showSection('alarm')" aria-label="Show alarm">Alarm</button>
         <button onclick="showSection('help')" aria-label="Show help">Help</button>
       </nav>
-      <nav class="secondary-nav" aria-label="Secondary navigation">
-        <ul>
-          <li><a href="/help" title="Help Guide">Help Guide</a></li>
-          <li><a href="/how-to-guides.html" title="How To Guides">How To Guides</a></li>
-          <li><a href="#timeSection" title="Clock">Clock</a></li>
-          <li><a href="#stopwatchSection" title="Stopwatch">Stopwatch</a></li>
-          <li><a href="#alarmSection" title="Alarm">Alarm</a></li>
-        </ul>
-      </nav>
     </header>
 
     <main>
       <!-- Clock Section -->
       <section id="timeSection" class="section">
         <div class="clock-container">
-          <select id="timezone" class="timezone-select" aria-label="Select timezone"></select>
-          <h1 id="clock">"Online virtual clock with stopwatch and alarm features."</h1>
+          <div class="search-container">
+            <input type="text" id="citySearch" class="city-search" placeholder="Search for a city..." aria-label="Search for a city">
+            <div id="citySearchResults" class="search-results" style="display: none;"></div>
+          </div>
+          <h1 id="clock">00:00:00</h1>
           <div id="date" class="date-display"></div>
         </div>
       </section>
@@ -73,7 +67,6 @@
       <!-- Stopwatch Section -->
       <section id="stopwatchSection" class="section" style="display: none;">
         <div class="stopwatch-container">
-          <h2>Stopwatch</h2>
           <div id="stopwatch" class="stopwatch-display" aria-live="polite">00:00:00</div>
           <div class="controls">
             <button id="startStopButton" onclick="toggleStopwatch()" aria-label="Start or stop stopwatch">Start</button>
@@ -85,7 +78,6 @@
       <!-- Alarm Section -->
       <section id="alarmSection" class="section" style="display: none;">
         <div class="alarm-container">
-          <h2>Alarm</h2>
           <input type="time" id="alarmTime" aria-label="Set alarm time">
           <button onclick="setAlarm()" aria-label="Set new alarm">Set Alarm</button>
           <button onclick="stopAlarmAll()" aria-label="Cancel all alarms">Cancel All Alarms</button>
@@ -110,40 +102,6 @@
         <source src="https://cdn.pixabay.com/audio/2021/08/04/audio_c668156e64.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
       </audio>
-      
-      <div class="footer-content">
-        <div class="footer-nav">
-          <h3>Quick Links</h3>
-          <ul>
-            <li><a href="/" title="Home">Home</a></li>
-            <li><a href="/help" title="Help">Help</a></li>
-            <li><a href="#timeSection" title="Clock">Clock</a></li>
-            <li><a href="#stopwatchSection" title="Stopwatch">Stopwatch</a></li>
-            <li><a href="#alarmSection" title="Alarm">Alarm</a></li>
-          </ul>
-        </div>
-        
-        <div class="related-resources">
-          <h3>Related Resources</h3>
-          <ul>
-            <li><a href="https://www.timeanddate.com/" rel="noopener" target="_blank" title="Time and Date">Time and Date</a></li>
-            <li><a href="https://www.worldtimebuddy.com/" rel="noopener" target="_blank" title="World Time Buddy">World Time Converter</a></li>
-            <li><a href="https://www.calendar.com/" rel="noopener" target="_blank" title="Calendar">Online Calendar</a></li>
-          </ul>
-        </div>
-        
-        <div class="social-links">
-          <h3>Connect With Us</h3>
-          <ul>
-            <li><a href="https://github.com/vclock" rel="noopener" target="_blank" title="GitHub"><img src="github-icon.svg" alt="GitHub">GitHub</a></li>
-            <li><a href="https://twitter.com/vclock" rel="noopener" target="_blank" title="Twitter"><img src="twitter-icon.svg" alt="Twitter">Twitter</a></li>
-          </ul>
-        </div>
-      </div>
-      
-      <div class="copyright">
-        <p>&copy; 2024 vClock. All rights reserved. <a href="/privacy-policy" title="Privacy Policy">Privacy Policy</a> | <a href="/terms" title="Terms of Use">Terms of Use</a></p>
-      </div>
     </footer>
 
     <script src="script.js"></script>

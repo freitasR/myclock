@@ -1,17 +1,235 @@
+// Global variables
+let selectedTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+let timezones = [];
+let cityMappings = {
+    // North America
+    'seattle': 'America/Los_Angeles',
+    'seattle wa': 'America/Los_Angeles',
+    'portland': 'America/Los_Angeles',
+    'portland or': 'America/Los_Angeles',
+    'san francisco': 'America/Los_Angeles',
+    'san francisco ca': 'America/Los_Angeles',
+    'sf': 'America/Los_Angeles',
+    'los angeles': 'America/Los_Angeles',
+    'los angeles ca': 'America/Los_Angeles',
+    'la': 'America/Los_Angeles',
+    'las vegas': 'America/Los_Angeles',
+    'las vegas nv': 'America/Los_Angeles',
+    'phoenix': 'America/Phoenix',
+    'phoenix az': 'America/Phoenix',
+    'denver': 'America/Denver',
+    'denver co': 'America/Denver',
+    'salt lake city': 'America/Denver',
+    'salt lake': 'America/Denver',
+    'dallas': 'America/Chicago',
+    'dallas tx': 'America/Chicago',
+    'houston': 'America/Chicago',
+    'houston tx': 'America/Chicago',
+    'chicago': 'America/Chicago',
+    'chicago il': 'America/Chicago',
+    'minneapolis': 'America/Chicago',
+    'minneapolis mn': 'America/Chicago',
+    'new york': 'America/New_York',
+    'new york city': 'America/New_York',
+    'nyc': 'America/New_York',
+    'boston': 'America/New_York',
+    'boston ma': 'America/New_York',
+    'philadelphia': 'America/New_York',
+    'philadelphia pa': 'America/New_York',
+    'miami': 'America/New_York',
+    'miami fl': 'America/New_York',
+    'atlanta': 'America/New_York',
+    'atlanta ga': 'America/New_York',
+    
+    // South America
+    'brasilia': 'America/Sao_Paulo',
+    'brazilia': 'America/Sao_Paulo',
+    'brasília': 'America/Sao_Paulo',
+    'sao paulo': 'America/Sao_Paulo',
+    'são paulo': 'America/Sao_Paulo',
+    'rio': 'America/Sao_Paulo',
+    'rio de janeiro': 'America/Sao_Paulo',
+    'buenos aires': 'America/Argentina/Buenos_Aires',
+    'santiago': 'America/Santiago',
+    'lima': 'America/Lima',
+    'bogota': 'America/Bogota',
+    'bogotá': 'America/Bogota',
+    'caracas': 'America/Caracas',
+    
+    // Europe
+    'london': 'Europe/London',
+    'manchester': 'Europe/London',
+    'dublin': 'Europe/Dublin',
+    'paris': 'Europe/Paris',
+    'berlin': 'Europe/Berlin',
+    'frankfurt': 'Europe/Berlin',
+    'munich': 'Europe/Berlin',
+    'münchen': 'Europe/Berlin',
+    'rome': 'Europe/Rome',
+    'roma': 'Europe/Rome',
+    'madrid': 'Europe/Madrid',
+    'barcelona': 'Europe/Madrid',
+    'lisbon': 'Europe/Lisbon',
+    'lisboa': 'Europe/Lisbon',
+    'amsterdam': 'Europe/Amsterdam',
+    'brussels': 'Europe/Brussels',
+    'bruxelles': 'Europe/Brussels',
+    'zurich': 'Europe/Zurich',
+    'zürich': 'Europe/Zurich',
+    'geneva': 'Europe/Zurich',
+    'stockholm': 'Europe/Stockholm',
+    'oslo': 'Europe/Oslo',
+    'copenhagen': 'Europe/Copenhagen',
+    'københavn': 'Europe/Copenhagen',
+    'helsinki': 'Europe/Helsinki',
+    'moscow': 'Europe/Moscow',
+    'moskva': 'Europe/Moscow',
+    'moscow': 'Europe/Moscow',
+    'istanbul': 'Europe/Istanbul',
+    
+    // Asia & Middle East
+    'dubai': 'Asia/Dubai',
+    'abu dhabi': 'Asia/Dubai',
+    'doha': 'Asia/Qatar',
+    'riyadh': 'Asia/Riyadh',
+    'delhi': 'Asia/Kolkata',
+    'new delhi': 'Asia/Kolkata',
+    'mumbai': 'Asia/Kolkata',
+    'bombay': 'Asia/Kolkata',
+    'bangalore': 'Asia/Kolkata',
+    'bengaluru': 'Asia/Kolkata',
+    'calcutta': 'Asia/Kolkata',
+    'kolkata': 'Asia/Kolkata',
+    'karachi': 'Asia/Karachi',
+    'dhaka': 'Asia/Dhaka',
+    'bangkok': 'Asia/Bangkok',
+    'hanoi': 'Asia/Bangkok',
+    'jakarta': 'Asia/Jakarta',
+    'singapore': 'Asia/Singapore',
+    'kuala lumpur': 'Asia/Kuala_Lumpur',
+    'manila': 'Asia/Manila',
+    'hong kong': 'Asia/Hong_Kong',
+    'taipei': 'Asia/Taipei',
+    'seoul': 'Asia/Seoul',
+    'tokyo': 'Asia/Tokyo',
+    'osaka': 'Asia/Tokyo',
+    'beijing': 'Asia/Shanghai',
+    'shanghai': 'Asia/Shanghai',
+    'guangzhou': 'Asia/Shanghai',
+    'shenzhen': 'Asia/Shanghai',
+    
+    // Oceania
+    'sydney': 'Australia/Sydney',
+    'melbourne': 'Australia/Melbourne',
+    'brisbane': 'Australia/Brisbane',
+    'perth': 'Australia/Perth',
+    'adelaide': 'Australia/Adelaide',
+    'auckland': 'Pacific/Auckland',
+    'wellington': 'Pacific/Auckland',
+    
+    // Others
+    'honolulu': 'Pacific/Honolulu',
+    'hawaii': 'Pacific/Honolulu',
+    'anchorage': 'America/Anchorage',
+    'alaska': 'America/Anchorage',
+    'vancouver': 'America/Vancouver',
+    'toronto': 'America/Toronto',
+    'montreal': 'America/Montreal',
+    'quebec': 'America/Montreal',
+    'mexico city': 'America/Mexico_City',
+    'ciudad de mexico': 'America/Mexico_City',
+    'mexico df': 'America/Mexico_City'
+};
+
+// Initialize timezone data
+async function initializeTimezones() {
+    if (typeof Intl.supportedValuesOf === "function") {
+        timezones = Intl.supportedValuesOf('timeZone');
+    } else {
+        // Fallback list using Object.keys from cityMappings
+        timezones = [...new Set(Object.values(cityMappings))];
+    }
+
+    // Set up city search functionality
+    const searchInput = document.getElementById('citySearch');
+    const searchResults = document.getElementById('citySearchResults');
+
+    searchInput.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase().trim();
+        if (searchTerm.length < 2) {
+            searchResults.style.display = 'none';
+            return;
+        }
+
+        // First try to match against city mappings
+        const cityMatches = Object.entries(cityMappings)
+            .filter(([city]) => city.includes(searchTerm))
+            .map(([city, tz]) => ({
+                displayName: city.charAt(0).toUpperCase() + city.slice(1),
+                timezone: tz
+            }));
+
+        // Then try to match against timezone names
+        const tzMatches = timezones
+            .filter(tz => {
+                const lowerTz = tz.toLowerCase();
+                return !cityMatches.some(match => match.timezone === tz) && // Avoid duplicates
+                    (lowerTz.includes(searchTerm) ||
+                     lowerTz.replace(/_/g, ' ').includes(searchTerm));
+            })
+            .map(tz => ({
+                displayName: formatCityName(tz),
+                timezone: tz
+            }));
+
+        // Combine and limit results
+        const matches = [...cityMatches, ...tzMatches].slice(0, 10);
+
+        if (matches.length > 0) {
+            searchResults.innerHTML = matches.map(match => 
+                `<div class="search-result-item" onclick="selectCity('${match.timezone}', '${match.displayName}')">${match.displayName}</div>`
+            ).join('');
+            searchResults.style.display = 'block';
+        } else {
+            searchResults.style.display = 'none';
+        }
+    });
+
+    // Hide results when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.search-container')) {
+            searchResults.style.display = 'none';
+        }
+    });
+}
+
+// Format city name for display
+function formatCityName(timezone) {
+    return timezone.split('/').pop().replace(/_/g, ' ');
+}
+
+// Handle city selection
+function selectCity(timezone, displayName) {
+    selectedTimezone = timezone;
+    document.getElementById('citySearch').value = displayName || formatCityName(timezone);
+    document.getElementById('citySearchResults').style.display = 'none';
+    updateClock(); // Update the clock immediately
+}
+
 // Update clock every second
 function updateClock() {
-  const now = new Date();
-  const options = {
-    timeZone: selectedTimezone,
-    timeStyle: 'medium',
-  };
-  const dateOptions = {
-    timeZone: selectedTimezone,
-    dateStyle: 'full'
-  };
-  
-  document.getElementById("clock").textContent = new Intl.DateTimeFormat('en-US', options).format(now);
-  document.getElementById("date").textContent = new Intl.DateTimeFormat('en-US', dateOptions).format(now);
+    const now = new Date();
+    const options = {
+        timeZone: selectedTimezone,
+        timeStyle: 'medium',
+    };
+    const dateOptions = {
+        timeZone: selectedTimezone,
+        dateStyle: 'full'
+    };
+    
+    document.getElementById("clock").textContent = new Intl.DateTimeFormat('en-US', options).format(now);
+    document.getElementById("date").textContent = new Intl.DateTimeFormat('en-US', dateOptions).format(now);
 }
 
 // Alarm functionality
@@ -119,31 +337,6 @@ function stopAlarm() {
 let stopwatchInterval;
 let stopwatchStartTime = 0;
 let elapsedTime = 0;
-
-// Timezone variable
-let selectedTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-// Initialize timezone selector early with fallback support
-function initializeTimezones() {
-    const tzSelect = document.getElementById('timezone');
-    let timezones = [];
-    if (typeof Intl.supportedValuesOf === "function") {
-        timezones = Intl.supportedValuesOf('timeZone');
-    } else {
-        // Fallback list
-        timezones = ["UTC", "America/New_York", "Europe/London", "Asia/Tokyo"];
-    }
-    timezones.forEach(tz => {
-        const option = new Option(tz, tz);
-        tzSelect.add(option);
-    });
-    tzSelect.value = selectedTimezone;
-    tzSelect.addEventListener('change', function() {
-        selectedTimezone = this.value;
-    });
-}
-
-initializeTimezones();
 
 // Stopwatch functions
 function toggleStopwatch() {
@@ -266,5 +459,6 @@ function markdownToHtml(markdown) {
 }
 
 // Initialize everything
+initializeTimezones();
 setInterval(updateClock, 1000);
 updateClock();
