@@ -1,8 +1,11 @@
 User-agent: *
 Allow: /
 Allow: /help
+Allow: /how-to-guides
+Allow: /privacy-policy
+Allow: /terms
 
-Sitemap: https://myclock.onrendercom/sitemap.xml
+Sitemap: https://vclock.com/sitemap.xml
 
 # Crawl-delay to be polite to servers
 Crawl-delay: 10
