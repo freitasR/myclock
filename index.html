@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/svg+xml" href="favicon-svg.svg">
   <link rel="canonical" href="https://vclock.com" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -46,6 +47,7 @@
       <nav class="nav-buttons" aria-label="Main navigation">
         <button onclick="showSection('time')" aria-label="Show clock">Time</button>
         <button onclick="showSection('stopwatch')" aria-label="Show stopwatch">Stopwatch</button>
+        <button onclick="showSection('timer')" aria-label="Show timer">Timer</button>
         <button onclick="showSection('alarm')" aria-label="Show alarm">Alarm</button>
         <button onclick="showSection('help')" aria-label="Show help">Help</button>
       </nav>
@@ -75,6 +77,25 @@
         </div>
       </section>
 
+      <!-- Timer Section -->
+      <section id="timerSection" class="section" style="display: none;">
+        <div class="timer-container">
+          <div class="timer-input-container">
+            <input type="number" id="timerHours" min="0" max="99" placeholder="HH" aria-label="Hours">
+            <span>:</span>
+            <input type="number" id="timerMinutes" min="0" max="59" placeholder="MM" aria-label="Minutes">
+            <span>:</span>
+            <input type="number" id="timerSeconds" min="0" max="59" placeholder="SS" aria-label="Seconds">
+          </div>
+          <div id="timer" class="timer-display">00:00:00</div>
+          <div class="controls">
+            <button onclick="startTimer()" id="startTimerBtn" aria-label="Start timer">Start</button>
+            <button onclick="pauseTimer()" id="pauseTimerBtn" aria-label="Pause timer" style="display: none;">Pause</button>
+            <button onclick="resetTimer()" aria-label="Reset timer">Reset</button>
+          </div>
+        </div>
+      </section>
+
       <!-- Alarm Section -->
       <section id="alarmSection" class="section" style="display: none;">
         <div class="alarm-container">
@@ -98,6 +119,34 @@
     </main>
 
     <footer>
+      <div class="footer-content">
+        <div class="footer-nav">
+          <ul>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms-of-use.html">Terms of Use</a></li>
+          </ul>
+        </div>
+        <div class="social-share">
+          <button onclick="shareOnFacebook()" class="share-button facebook" aria-label="Share on Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </button>
+          <button onclick="shareOnTwitter()" class="share-button twitter" aria-label="Share on Twitter">
+            <i class="fab fa-twitter"></i>
+          </button>
+          <button onclick="shareOnPinterest()" class="share-button pinterest" aria-label="Share on Pinterest">
+            <i class="fab fa-pinterest-p"></i>
+          </button>
+          <button onclick="shareOnReddit()" class="share-button reddit" aria-label="Share on Reddit">
+            <i class="fab fa-reddit-alien"></i>
+          </button>
+          <button onclick="shareOnLinkedIn()" class="share-button linkedin" aria-label="Share on LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </button>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2024 vClock. All rights reserved.</p>
+      </div>
       <audio id="alarmSound" loop>
         <source src="https://cdn.pixabay.com/audio/2021/08/04/audio_c668156e64.mp3" type="audio/mpeg">
         Your browser does not support the audio element.

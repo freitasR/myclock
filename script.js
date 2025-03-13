@@ -377,11 +377,85 @@ function updateStopwatch() {
         (milliseconds < 10 ? '0' + milliseconds : milliseconds);
 }
 
+// Timer variables
+let timerInterval;
+let timerEndTime = 0;
+let timerPaused = false;
+let timerRemainingTime = 0;
+
+function startTimer() {
+    const hours = parseInt(document.getElementById('timerHours').value) || 0;
+    const minutes = parseInt(document.getElementById('timerMinutes').value) || 0;
+    const seconds = parseInt(document.getElementById('timerSeconds').value) || 0;
+    
+    if (hours === 0 && minutes === 0 && seconds === 0) {
+        alert('Please set a time for the timer');
+        return;
+    }
+
+    if (!timerPaused) {
+        const totalMilliseconds = (hours * 3600 + minutes * 60 + seconds) * 1000;
+        timerEndTime = Date.now() + totalMilliseconds;
+    } else {
+        timerEndTime = Date.now() + timerRemainingTime;
+    }
+
+    document.getElementById('startTimerBtn').style.display = 'none';
+    document.getElementById('pauseTimerBtn').style.display = 'inline-block';
+    
+    timerInterval = setInterval(updateTimer, 10);
+    timerPaused = false;
+}
+
+function updateTimer() {
+    const remaining = timerEndTime - Date.now();
+    
+    if (remaining <= 0) {
+        clearInterval(timerInterval);
+        document.getElementById('timer').textContent = '00:00:00';
+        document.getElementById('startTimerBtn').style.display = 'inline-block';
+        document.getElementById('pauseTimerBtn').style.display = 'none';
+        playAlarm();
+        return;
+    }
+    
+    const hours = Math.floor(remaining / 3600000);
+    const minutes = Math.floor((remaining % 3600000) / 60000);
+    const seconds = Math.floor((remaining % 60000) / 1000);
+    
+    document.getElementById('timer').textContent = 
+        (hours ? (hours < 10 ? '0' + hours : hours) + ':' : '00:') +
+        (minutes < 10 ? '0' + minutes : minutes) + ':' +
+        (seconds < 10 ? '0' + seconds : seconds);
+}
+
+function pauseTimer() {
+    clearInterval(timerInterval);
+    timerPaused = true;
+    timerRemainingTime = timerEndTime - Date.now();
+    document.getElementById('startTimerBtn').style.display = 'inline-block';
+    document.getElementById('pauseTimerBtn').style.display = 'none';
+}
+
+function resetTimer() {
+    clearInterval(timerInterval);
+    timerPaused = false;
+    timerRemainingTime = 0;
+    document.getElementById('timer').textContent = '00:00:00';
+    document.getElementById('timerHours').value = '';
+    document.getElementById('timerMinutes').value = '';
+    document.getElementById('timerSeconds').value = '';
+    document.getElementById('startTimerBtn').style.display = 'inline-block';
+    document.getElementById('pauseTimerBtn').style.display = 'none';
+    stopAlarm();
+}
+
 // Section toggling functionality
 function showSection(section) {
     // Hide all sections
     document.getElementById('timeSection').style.display = 'none';
     document.getElementById('stopwatchSection').style.display = 'none';
+    document.getElementById('timerSection').style.display = 'none';
     document.getElementById('alarmSection').style.display = 'none';
     document.getElementById('helpSection').style.display = 'none';
     
@@ -397,48 +471,100 @@ function showSection(section) {
 
 // Help section functionality
 async function loadHelpContent() {
-    const markdownContent = `# How to Use vClock: Complete Guide for Time, Stopwatch, and Alarm Features
+    const markdownContent = `# How to Use vClock: Complete Guide
 
-## How to Use the World Clock Feature in vClock
-The digital world clock in vClock allows you to check the current time in different time zones around the world. Here's how to make the most of this feature:
+## How to Use the World Clock Feature
+The digital world clock in vClock allows you to check the current time in different time zones around the world.
 
-### Getting Started with the World Clock
+### Getting Started
 1. Open the vClock application in your browser
-2. By default, the Time section should be displayed. If not, click the "Time" button in the top navigation bar
-3. View the current time displayed in a large, easy-to-read digital format
-4. The current date is shown below the time display
-
-### How to Change Time Zones
-1. Locate the dropdown menu at the top of the clock display
-2. Click on the dropdown to view available time zones
-3. Select your desired time zone from the list
-4. The clock will instantly update to show the correct time in your selected time zone
-5. The date display will automatically adjust if the selected time zone is in a different day
+2. By default, the Time section should be displayed
+3. Use the search box to find your desired city
+4. View the current time displayed in a large, easy-to-read digital format
+5. The current date is shown below the time display
 
 ### Time Display Features
-- The time is displayed in a 24-hour format (00:00:00)
-- Seconds are shown to help with precise time tracking
-- The interface automatically updates in real-time without requiring page refreshes
-- The clean display makes it easy to read the time at a glance, even from a distance
+- The time is displayed in a 24-hour format
+- The interface automatically updates in real-time
+- Search for any major city to see its local time
+- The clean display makes it easy to read the time at a glance
 
-## How to Use the Stopwatch Feature in vClock
-The stopwatch function allows you to measure elapsed time with precision. Whether for workouts, cooking, or timing any activity, here's how to use this feature effectively:
+## How to Use the Timer Feature in vClock
+The timer function allows you to set a countdown for a specific duration. Perfect for cooking, workouts, or any timed activity that needs a countdown.
+
+### Using the Timer
+1. Click on the "Timer" tab in the navigation bar
+2. Enter your desired duration:
+   - Set hours (0-99)
+   - Set minutes (0-59)
+   - Set seconds (0-59)
+3. Click "Start" to begin the countdown
+4. Use "Pause" to temporarily stop the timer if needed
+5. Click "Reset" to clear the timer and start over
+6. When the timer reaches zero, an alarm will sound
+7. Click "Stop Alarm" to silence the alarm
+
+### Timer Features
+- Easy-to-read digital display
+- Precise countdown to the second
+- Pause and resume functionality
+- Alarm notification when time is up
+- Reset option to clear the timer
+
+## How to Use the Stopwatch Feature
+The stopwatch function allows you to measure elapsed time with precision. Whether for workouts, cooking, or timing any activity, here's how to use this feature:
 
 ### Using Stopwatch Controls
-1. Click the "Start" button to begin timing
-2. Click the "Stop" button at any time to pause the counting
-3. Click the "Reset" button to return to 00:00:00
+1. Navigate to the "Stopwatch" tab
+2. Click "Start" to begin timing
+3. Click "Stop" to pause the counting
+4. Use "Reset" to clear the timer and start from zero
 
-## How to Set and Use Alarms in vClock
+### Stopwatch Features
+- Precise timing with millisecond accuracy
+- Start, stop, and reset functionality
+- Clear, easy-to-read display
+- Continues running even if you switch tabs
+
+## How to Set and Use Alarms
 The alarm feature helps you set reminders and wake-up calls with a customizable alert system.
 
 ### Setting Up an Alarm
-1. Click on the "Alarm" button in the top navigation menu
-2. Set your desired alarm time using the time selector
-3. Click "Set Alarm" to activate
-4. Use "Test Sound" to verify your volume settings
-5. Click "Stop Alarm" when the alarm rings
-6. Use "Cancel All Alarms" to clear all scheduled alarms`;
+1. Go to the "Alarm" tab
+2. Select your desired alarm time
+3. Click "Set Alarm" to create a new alarm
+4. Your new alarm will appear in the list below
+5. Use "Cancel All Alarms" to remove all active alarms
+6. "Test Sound" lets you preview the alarm tone
+
+### Alarm Features
+- Set multiple alarms at once
+- Each alarm shows in an easy-to-read list
+- Cancel individual or all alarms
+- Test sound feature to verify volume
+- Alarm continues until manually stopped
+
+## Troubleshooting
+- Ensure your browser supports JavaScript
+- Check your internet connection
+- Make sure your browser allows audio for alarms
+- Refresh the page if any issues occur
+
+## Compatibility
+- Works on all modern web browsers
+- Responsive design for mobile and desktop
+- No installation required
+- Works offline once loaded
+
+## Privacy
+- All time tracking happens client-side
+- No personal data is stored or collected
+- Preferences are saved locally in your browser
+
+## Contact
+For support or questions, please reach out via our contact page.
+
+*Last Updated: March 2025*`;
 
     document.getElementById('helpContent').innerHTML = markdownToHtml(markdownContent);
 }
@@ -456,6 +582,38 @@ function markdownToHtml(markdown) {
         .split(/\n\n/).map(paragraph => 
             paragraph.startsWith('<') ? paragraph : `<p>${paragraph}</p>`
         ).join('\n');
+}
+
+// Social sharing functions
+function shareOnFacebook() {
+    const url = encodeURIComponent(window.location.href);
+    const title = encodeURIComponent('Check out this awesome virtual clock!');
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${title}`, '_blank');
+}
+
+function shareOnTwitter() {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent('Check out this awesome virtual clock with timezone search, stopwatch, timer, and alarm features!');
+    window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
+}
+
+function shareOnPinterest() {
+    const url = encodeURIComponent(window.location.href);
+    const description = encodeURIComponent('Virtual Clock - Online Clock with Stopwatch and Alarm');
+    const media = encodeURIComponent(window.location.origin + '/favicon-svg.svg');
+    window.open(`https://pinterest.com/pin/create/button/?url=${url}&media=${media}&description=${description}`, '_blank');
+}
+
+function shareOnReddit() {
+    const url = encodeURIComponent(window.location.href);
+    const title = encodeURIComponent('Virtual Clock - Online Clock with Stopwatch and Alarm');
+    window.open(`https://reddit.com/submit?url=${url}&title=${title}`, '_blank');
+}
+
+function shareOnLinkedIn() {
+    const url = encodeURIComponent(window.location.href);
+    const title = encodeURIComponent('Virtual Clock - Online Clock with Stopwatch and Alarm');
+    window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}`, '_blank');
 }
 
 // Initialize everything
