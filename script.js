@@ -588,7 +588,7 @@ The alarm feature helps you set reminders and wake-up calls with a customizable 
 - Preferences are saved locally in your browser
 
 ## Contact
-For support or questions, please reach out via our contact page.
+For support or questions, please contact us.
 
 *Last Updated: March 2025*`;
 
