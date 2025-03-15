@@ -240,43 +240,69 @@ let isAlarmRinging = false;
 // Global alarms array for multiple alarms
 let alarms = [];
 
-// Modify setAlarm to allow multiple alarms and update alarm list instead of alerting
+// Modify setAlarm function to handle HH:MM:SS format
 function setAlarm() {
-  // Get alarm time input and validate
-  const alarmTimeInput = document.getElementById("alarmTime").value;
-  if (!alarmTimeInput) {
-    alert("Please set a valid time for the alarm.");
+  const hours = parseInt(document.getElementById("alarmHours").value) || 0;
+  const minutes = parseInt(document.getElementById("alarmMinutes").value) || 0;
+  const seconds = parseInt(document.getElementById("alarmSeconds").value) || 0;
+
+  if (hours === 0 && minutes === 0 && seconds === 0) {
+    alert("Please set a time for the alarm.");
+    return;
+  }
+
+  if (hours > 23 || minutes > 59 || seconds > 59) {
+    alert("Please enter valid time values.");
     return;
   }
 
   const now = new Date();
-  let alarmDate = new Date(now.toDateString() + ' ' + alarmTimeInput);
+  let alarmDate = new Date(now);
+  alarmDate.setHours(hours);
+  alarmDate.setMinutes(minutes);
+  alarmDate.setSeconds(seconds);
+  
+  // If the time has already passed today, set it for tomorrow
   if (alarmDate < now) {
-    // If time passed today, schedule for tomorrow
     alarmDate.setDate(alarmDate.getDate() + 1);
   }
+
   const timeToAlarm = alarmDate - now;
-  // Create a unique id for this alarm
   const alarmId = Date.now();
   const timeout = setTimeout(() => {
     playAlarm();
-    // Optionally, remove the alarm from list when triggered:
     removeAlarm(alarmId);
     document.getElementById("stopAlarm").style.display = "inline-block";
   }, timeToAlarm);
   
-  // Store alarm details
-  alarms.push({ id: alarmId, time: alarmDate, timeout: timeout });
+  // Store alarm details with formatted time
+  alarms.push({ 
+    id: alarmId, 
+    time: alarmDate, 
+    timeout: timeout 
+  });
+  
+  // Reset input fields
+  document.getElementById("alarmHours").value = "";
+  document.getElementById("alarmMinutes").value = "";
+  document.getElementById("alarmSeconds").value = "";
+  
   updateAlarmList();
 }
 
-// Update the alarm list box with the alarms that have been set
+// Update the updateAlarmList function to show time in 24-hour format
 function updateAlarmList() {
   const list = document.getElementById("alarmList");
   list.innerHTML = ""; // Clear existing list
   alarms.forEach(alarm => {
+    const timeString = alarm.time.toLocaleTimeString('en-US', { 
+      hour12: false,
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
     list.innerHTML += `<div class="alarm-item" id="alarm-${alarm.id}">
-      ${alarm.time.toLocaleTimeString()} 
+      ${timeString} 
       <button onclick="removeAlarm(${alarm.id})">Cancel</button>
     </div>`;
   });

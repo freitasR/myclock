@@ -99,7 +99,13 @@
       <!-- Alarm Section -->
       <section id="alarmSection" class="section" style="display: none;">
         <div class="alarm-container">
-          <input type="time" id="alarmTime" aria-label="Set alarm time">
+          <div class="timer-input-container">
+            <input type="number" id="alarmHours" min="0" max="23" placeholder="HH" aria-label="Hours">
+            <span>:</span>
+            <input type="number" id="alarmMinutes" min="0" max="59" placeholder="MM" aria-label="Minutes">
+            <span>:</span>
+            <input type="number" id="alarmSeconds" min="0" max="59" placeholder="SS" aria-label="Seconds">
+          </div>
           <button onclick="setAlarm()" aria-label="Set new alarm">Set Alarm</button>
           <button onclick="stopAlarmAll()" aria-label="Cancel all alarms">Cancel All Alarms</button>
           <button onclick="testSound()" aria-label="Test alarm sound">Test Sound</button>

@@ -527,3 +527,64 @@ button:disabled {
     appearance: textfield;
     -moz-appearance: textfield;
 }
+
+/* Alarm specific styles */
+.alarm-container {
+    background: #16213e;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+}
+
+.alarm-list {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    border-top: 2px solid #533483;
+}
+
+.alarm-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #0f3460;
+    padding: 1rem;
+    border-radius: 10px;
+    font-size: 1.2rem;
+}
+
+.alarm-item button {
+    margin-left: 1rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+.alarm-container > button {
+    margin: 0.5rem;
+    min-width: 120px;
+}
+
+/* Update responsive styles for alarm section */
+@media (max-width: 480px) {
+    .alarm-item {
+        flex-direction: row;
+        font-size: 1rem;
+        padding: 0.8rem;
+    }
+    
+    .alarm-item button {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+        margin-left: 0.5rem;
+    }
+    
+    .alarm-container > button {
+        margin: 0.4rem;
+        min-width: 100px;
+    }
+}
