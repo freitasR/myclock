@@ -6,23 +6,23 @@
   <meta name="description" content="Online virtual clock with stopwatch and alarm features. Keep track of time across different time zones with this easy-to-use web clock.">
   <meta name="keywords" content="virtual clock, online clock, stopwatch, alarm clock, time zones, web clock, digital clock, online timer">
   <meta name="robots" content="index, follow">
-  <meta name="author" content="vClock">
+  <meta name="author" content="bbclock">
   
   <!-- Open Graph / Social Media Meta Tags -->
   <meta property="og:title" content="Virtual Clock - Online Clock with Stopwatch and Alarm">
   <meta property="og:description" content="Free online virtual clock with stopwatch and alarm features. Track time across different time zones easily.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://vclock.com">
+  <meta property="og:url" content="https://bbclock.com">
   
   <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Virtual Clock - Online Clock with Stopwatch and Alarm">
   <meta name="twitter:description" content="Free online virtual clock with stopwatch and alarm features. Track time across different time zones easily.">
   
-  <title>Virtual Clock - Online Clock with Stopwatch and Alarm | vClock</title>
+  <title>Virtual Clock - Online Clock with Stopwatch and Alarm | bbclock</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/svg+xml" href="favicon-svg.svg">
-  <link rel="canonical" href="https://vclock.com" />
+  <link rel="canonical" href="https://bbclock.com" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   
   <!-- Structured Data -->
@@ -44,13 +44,16 @@
 </head>
 <body>
     <header>
-      <nav class="nav-buttons" aria-label="Main navigation">
-        <button onclick="showSection('time')" aria-label="Show clock">Time</button>
-        <button onclick="showSection('stopwatch')" aria-label="Show stopwatch">Stopwatch</button>
-        <button onclick="showSection('timer')" aria-label="Show timer">Timer</button>
-        <button onclick="showSection('alarm')" aria-label="Show alarm">Alarm</button>
-        <button onclick="showSection('help')" aria-label="Show help">Help</button>
-      </nav>
+      <div class="header-content">
+        <div class="site-name">bbclock</div>
+        <nav class="nav-buttons" aria-label="Main navigation">
+          <button onclick="showSection('time')" aria-label="Show clock">Time</button>
+          <button onclick="showSection('stopwatch')" aria-label="Show stopwatch">Stopwatch</button>
+          <button onclick="showSection('timer')" aria-label="Show timer">Timer</button>
+          <button onclick="showSection('alarm')" aria-label="Show alarm">Alarm</button>
+          <button onclick="showSection('help')" aria-label="Show help">Help</button>
+        </nav>
+      </div>
     </header>
 
     <main>
@@ -147,7 +150,7 @@
         <span class="separator">|</span>
         <a href="terms-of-use.html">Terms of Use</a>
         <span class="separator">|</span>
-        <span class="copyright">&copy; 2024 vClock. All rights reserved.</span>
+        <span class="copyright">&copy; 2024 bbclock. All rights reserved.</span>
       </div>
       <audio id="alarmSound" loop>
         <source src="https://cdn.pixabay.com/audio/2021/08/04/audio_c668156e64.mp3" type="audio/mpeg">

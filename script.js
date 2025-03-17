@@ -497,13 +497,13 @@ function showSection(section) {
 
 // Help section functionality
 async function loadHelpContent() {
-    const markdownContent = `# How to Use vClock: Complete Guide
+    const markdownContent = `# How to Use bbclock: Complete Guide
 
 ## How to Use the World Clock Feature
-The digital world clock in vClock allows you to check the current time in different time zones around the world.
+The digital world clock in bbclock allows you to check the current time in different time zones around the world.
 
 ### Getting Started
-1. Open the vClock application in your browser
+1. Open the bbclock application in your browser
 2. By default, the Time section should be displayed
 3. Use the search box to find your desired city
 4. View the current time displayed in a large, easy-to-read digital format
@@ -515,7 +515,7 @@ The digital world clock in vClock allows you to check the current time in differ
 - Search for any major city to see its local time
 - The clean display makes it easy to read the time at a glance
 
-## How to Use the Timer Feature in vClock
+## How to Use the Timer Feature in bbclock
 The timer function allows you to set a countdown for a specific duration. Perfect for cooking, workouts, or any timed activity that needs a countdown.
 
 ### Using the Timer
