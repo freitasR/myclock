@@ -1,8 +1,24 @@
 User-agent: *
 Allow: /
-Allow: /help
+Allow: /index.html
+Allow: /stopwatch.html
+Allow: /timer.html
+Allow: /alarm.html
+Allow: /help.html
+Allow: /privacy-policy.html
+Allow: /terms-of-use.html
 
-Sitemap: https://myclock.onrendercom/sitemap.xml
+# Sitemap location
+Sitemap: https://bbclock.com/sitemap.xml
 
 # Crawl-delay to be polite to servers
 Crawl-delay: 10
+
+# Disallow any backup files
+Disallow: /*.bak$
+Disallow: /*.backup$
+Disallow: /*-backup
+Disallow: /*.zip$
+
+# Help search engines focus on important content
+Disallow: /nginx/
