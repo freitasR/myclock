@@ -3,21 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="bbclock - Online World Clock with timezone support, stopwatch, timer, and alarm features">
-  <meta name="keywords" content="world clock, online clock, timezone clock, digital clock">
+  <meta name="description" content="Online countdown timer with hours, minutes, and seconds - part of bbclock's time management tools">
+  <meta name="keywords" content="countdown timer, online timer, digital timer, time management">
   <meta name="robots" content="index, follow">
   <meta name="author" content="bbclock">
-  <meta property="og:title" content="bbclock - World Clock">
-  <meta property="og:description" content="Online World Clock with timezone support">
+  <meta property="og:title" content="bbclock - Timer">
+  <meta property="og:description" content="Customizable countdown timer with audio alerts">
   <meta property="og:type" content="website">
   
-  <title>bbclock - World Clock</title>
+  <title>bbclock - Timer</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/svg+xml" href="favicon-svg.svg">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <a href="#main" class="skip-to-main">Skip to main content</a>
     <header>
       <div class="header-content">
         <div class="site-name">bbclock</div>
@@ -31,15 +30,25 @@
       </div>
     </header>
 
-    <main id="main">
+    <main>
       <section class="section">
-        <div class="clock-container">
-          <div class="search-container">
-            <input type="text" id="citySearch" class="city-search" placeholder="Search for a city..." aria-label="Search for a city">
-            <div id="citySearchResults" class="search-results" style="display: none;"></div>
+        <div class="timer-container">
+          <div class="timer-input-container">
+            <input type="number" id="timerHours" min="0" max="99" placeholder="HH" aria-label="Hours">
+            <span>:</span>
+            <input type="number" id="timerMinutes" min="0" max="59" placeholder="MM" aria-label="Minutes">
+            <span>:</span>
+            <input type="number" id="timerSeconds" min="0" max="59" placeholder="SS" aria-label="Seconds">
           </div>
-          <h1 id="clock">00:00:00</h1>
-          <div id="date" class="date-display"></div>
+          <div id="timer" class="timer-display">00:00:00</div>
+          <div class="controls">
+            <button onclick="startTimer()" id="startTimerBtn" aria-label="Start timer">Start</button>
+            <button onclick="pauseTimer()" id="pauseTimerBtn" aria-label="Pause timer" style="display: none;">Pause</button>
+            <button onclick="stopAlarm()" aria-label="Stop alarm sound">Stop</button>
+            <button onclick="resetTimer()" aria-label="Reset timer">Reset</button>
+            <button onclick="restartTimer()" aria-label="Restart timer">Restart</button>
+            
+          </div>
         </div>
       </section>
     </main>
@@ -72,5 +81,9 @@
     </footer>
 
     <script src="script.js"></script>
+    <audio id="alarmSound" loop>
+      <source src="https://cdn.pixabay.com/audio/2021/08/04/audio_c668156e64.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
 </body>
 </html>

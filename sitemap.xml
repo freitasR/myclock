@@ -1,32 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://myclock.onrendercom/</loc>
+    <lastmod>2025-01-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://myclock.onrendercom/help</loc>
+    <lastmod>2025-01-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://vclock.com/</loc>
-    <lastmod>2024-01-17</lastmod>
+    <lastmod>2025-01-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://vclock.com/help</loc>
-    <lastmod>2024-01-17</lastmod>
+    <lastmod>2025-01-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://vclock.com/how-to-guides</loc>
-    <lastmod>2024-01-17</lastmod>
+    <lastmod>2025-01-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://vclock.com/privacy-policy</loc>
-    <lastmod>2024-01-17</lastmod>
+    <lastmod>2025-01-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://vclock.com/terms</loc>
-    <lastmod>2024-01-17</lastmod>
+    <lastmod>2025-01-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>

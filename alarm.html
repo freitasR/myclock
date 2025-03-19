@@ -3,21 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="bbclock - Online World Clock with timezone support, stopwatch, timer, and alarm features">
-  <meta name="keywords" content="world clock, online clock, timezone clock, digital clock">
+  <meta name="description" content="Online alarm clock with multiple alarms support - part of bbclock's time management tools">
+  <meta name="keywords" content="alarm clock, online alarm, digital alarm, multiple alarms">
   <meta name="robots" content="index, follow">
   <meta name="author" content="bbclock">
-  <meta property="og:title" content="bbclock - World Clock">
-  <meta property="og:description" content="Online World Clock with timezone support">
+  <meta property="og:title" content="bbclock - Alarm">
+  <meta property="og:description" content="Set multiple alarms with customizable times">
   <meta property="og:type" content="website">
   
-  <title>bbclock - World Clock</title>
+  <title>bbclock - Alarm</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/svg+xml" href="favicon-svg.svg">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <a href="#main" class="skip-to-main">Skip to main content</a>
     <header>
       <div class="header-content">
         <div class="site-name">bbclock</div>
@@ -31,15 +30,23 @@
       </div>
     </header>
 
-    <main id="main">
+    <main>
       <section class="section">
-        <div class="clock-container">
-          <div class="search-container">
-            <input type="text" id="citySearch" class="city-search" placeholder="Search for a city..." aria-label="Search for a city">
-            <div id="citySearchResults" class="search-results" style="display: none;"></div>
+        <div class="alarm-container">
+          <div class="timer-input-container">
+            <input type="number" id="alarmHours" min="0" max="23" placeholder="HH" aria-label="Hours">
+            <span>:</span>
+            <input type="number" id="alarmMinutes" min="0" max="59" placeholder="MM" aria-label="Minutes">
+            <span>:</span>
+            <input type="number" id="alarmSeconds" min="0" max="59" placeholder="SS" aria-label="Seconds">
           </div>
-          <h1 id="clock">00:00:00</h1>
-          <div id="date" class="date-display"></div>
+          <button onclick="setAlarm()" aria-label="Set new alarm">Set Alarm</button>
+          <button onclick="stopAlarmAll()" aria-label="Cancel all alarms">Cancel All Alarms</button>
+          <button onclick="testSound()" aria-label="Test alarm sound">Test Sound</button>
+          <button onclick="stopAlarm()" id="stopAlarm" style="display: none;" aria-label="Stop current alarm">Stop Alarm</button>
+          <div id="alarmList" class="alarm-list" aria-live="polite">
+            <!-- Alarm list will display here -->
+          </div>
         </div>
       </section>
     </main>
@@ -72,5 +79,9 @@
     </footer>
 
     <script src="script.js"></script>
+    <audio id="alarmSound" loop>
+        <source src="https://cdn.pixabay.com/audio/2021/08/04/audio_c668156e64.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
 </body>
 </html>

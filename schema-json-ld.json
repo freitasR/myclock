@@ -1,0 +1,34 @@
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "bbclock",
+  "url": "https://myclock.onrender.com/",
+  "description": "A versatile web application featuring time zones, stopwatch, and alarm functions to help you manage your time effectively.",
+  "applicationCategory": "Utility",
+  "operatingSystem": "All",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Web Developer"
+  },
+  "keywords": [
+    "time", 
+    "clock", 
+    "stopwatch", 
+    "alarm", 
+    "timer", 
+    "free clock",
+    "free stopwatch",
+    "free alarm",
+    "free timer",
+  ],
+  "potentialAction": {
+    "@type": "Action",
+    "name": "Use Web App",
+    "target": "https://myclock.onrender.com/"
+  }
+}

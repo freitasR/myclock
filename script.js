@@ -1,148 +1,142 @@
-// Global variables
+// Global state and initialization
 let selectedTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 let timezones = [];
 let cityMappings = {
-    // North America
-    'seattle': 'America/Los_Angeles',
-    'seattle wa': 'America/Los_Angeles',
-    'portland': 'America/Los_Angeles',
-    'portland or': 'America/Los_Angeles',
-    'san francisco': 'America/Los_Angeles',
-    'san francisco ca': 'America/Los_Angeles',
-    'sf': 'America/Los_Angeles',
-    'los angeles': 'America/Los_Angeles',
-    'los angeles ca': 'America/Los_Angeles',
-    'la': 'America/Los_Angeles',
-    'las vegas': 'America/Los_Angeles',
-    'las vegas nv': 'America/Los_Angeles',
-    'phoenix': 'America/Phoenix',
-    'phoenix az': 'America/Phoenix',
-    'denver': 'America/Denver',
-    'denver co': 'America/Denver',
-    'salt lake city': 'America/Denver',
-    'salt lake': 'America/Denver',
-    'dallas': 'America/Chicago',
-    'dallas tx': 'America/Chicago',
-    'houston': 'America/Chicago',
-    'houston tx': 'America/Chicago',
-    'chicago': 'America/Chicago',
-    'chicago il': 'America/Chicago',
-    'minneapolis': 'America/Chicago',
-    'minneapolis mn': 'America/Chicago',
-    'new york': 'America/New_York',
-    'new york city': 'America/New_York',
-    'nyc': 'America/New_York',
-    'boston': 'America/New_York',
-    'boston ma': 'America/New_York',
-    'philadelphia': 'America/New_York',
-    'philadelphia pa': 'America/New_York',
-    'miami': 'America/New_York',
-    'miami fl': 'America/New_York',
-    'atlanta': 'America/New_York',
-    'atlanta ga': 'America/New_York',
-    
-    // South America
-    'brasilia': 'America/Sao_Paulo',
-    'brazilia': 'America/Sao_Paulo',
-    'brasília': 'America/Sao_Paulo',
-    'sao paulo': 'America/Sao_Paulo',
-    'são paulo': 'America/Sao_Paulo',
-    'rio': 'America/Sao_Paulo',
-    'rio de janeiro': 'America/Sao_Paulo',
-    'buenos aires': 'America/Argentina/Buenos_Aires',
-    'santiago': 'America/Santiago',
-    'lima': 'America/Lima',
-    'bogota': 'America/Bogota',
-    'bogotá': 'America/Bogota',
-    'caracas': 'America/Caracas',
-    
-    // Europe
     'london': 'Europe/London',
-    'manchester': 'Europe/London',
-    'dublin': 'Europe/Dublin',
     'paris': 'Europe/Paris',
-    'berlin': 'Europe/Berlin',
-    'frankfurt': 'Europe/Berlin',
-    'munich': 'Europe/Berlin',
-    'münchen': 'Europe/Berlin',
-    'rome': 'Europe/Rome',
-    'roma': 'Europe/Rome',
-    'madrid': 'Europe/Madrid',
-    'barcelona': 'Europe/Madrid',
-    'lisbon': 'Europe/Lisbon',
-    'lisboa': 'Europe/Lisbon',
-    'amsterdam': 'Europe/Amsterdam',
-    'brussels': 'Europe/Brussels',
-    'bruxelles': 'Europe/Brussels',
-    'zurich': 'Europe/Zurich',
-    'zürich': 'Europe/Zurich',
-    'geneva': 'Europe/Zurich',
-    'stockholm': 'Europe/Stockholm',
-    'oslo': 'Europe/Oslo',
-    'copenhagen': 'Europe/Copenhagen',
-    'københavn': 'Europe/Copenhagen',
-    'helsinki': 'Europe/Helsinki',
-    'moscow': 'Europe/Moscow',
-    'moskva': 'Europe/Moscow',
-    'moscow': 'Europe/Moscow',
-    'istanbul': 'Europe/Istanbul',
-    
-    // Asia & Middle East
-    'dubai': 'Asia/Dubai',
-    'abu dhabi': 'Asia/Dubai',
-    'doha': 'Asia/Qatar',
-    'riyadh': 'Asia/Riyadh',
-    'delhi': 'Asia/Kolkata',
-    'new delhi': 'Asia/Kolkata',
-    'mumbai': 'Asia/Kolkata',
-    'bombay': 'Asia/Kolkata',
-    'bangalore': 'Asia/Kolkata',
-    'bengaluru': 'Asia/Kolkata',
-    'calcutta': 'Asia/Kolkata',
-    'kolkata': 'Asia/Kolkata',
-    'karachi': 'Asia/Karachi',
-    'dhaka': 'Asia/Dhaka',
-    'bangkok': 'Asia/Bangkok',
-    'hanoi': 'Asia/Bangkok',
-    'jakarta': 'Asia/Jakarta',
-    'singapore': 'Asia/Singapore',
-    'kuala lumpur': 'Asia/Kuala_Lumpur',
-    'manila': 'Asia/Manila',
-    'hong kong': 'Asia/Hong_Kong',
-    'taipei': 'Asia/Taipei',
-    'seoul': 'Asia/Seoul',
+    'new york': 'America/New_York',
     'tokyo': 'Asia/Tokyo',
-    'osaka': 'Asia/Tokyo',
-    'beijing': 'Asia/Shanghai',
-    'shanghai': 'Asia/Shanghai',
-    'guangzhou': 'Asia/Shanghai',
-    'shenzhen': 'Asia/Shanghai',
-    
-    // Oceania
     'sydney': 'Australia/Sydney',
-    'melbourne': 'Australia/Melbourne',
-    'brisbane': 'Australia/Brisbane',
-    'perth': 'Australia/Perth',
-    'adelaide': 'Australia/Adelaide',
-    'auckland': 'Pacific/Auckland',
-    'wellington': 'Pacific/Auckland',
-    
-    // Others
-    'honolulu': 'Pacific/Honolulu',
-    'hawaii': 'Pacific/Honolulu',
-    'anchorage': 'America/Anchorage',
-    'alaska': 'America/Anchorage',
-    'vancouver': 'America/Vancouver',
+    'los angeles': 'America/Los_Angeles',
+    'chicago': 'America/Chicago',
+    'berlin': 'Europe/Berlin',
+    'moscow': 'Europe/Moscow',
+    'dubai': 'Asia/Dubai',
+    'singapore': 'Asia/Singapore',
+    'hong kong': 'Asia/Hong_Kong',
+    'mumbai': 'Asia/Kolkata',
+    'cairo': 'Africa/Cairo',
+    'rio de janeiro': 'America/Sao_Paulo',
+    'beijing': 'Asia/Shanghai',
+    'istanbul': 'Europe/Istanbul',
+    'rome': 'Europe/Rome',
     'toronto': 'America/Toronto',
-    'montreal': 'America/Montreal',
-    'quebec': 'America/Montreal',
+    'madrid': 'Europe/Madrid',
+    'amsterdam': 'Europe/Amsterdam',
+    'bangkok': 'Asia/Bangkok',
+    'vienna': 'Europe/Vienna',
+    'seoul': 'Asia/Seoul',
+    'kuala lumpur': 'Asia/Kuala_Lumpur',
+    'jakarta': 'Asia/Jakarta',
+    'auckland': 'Pacific/Auckland',
+    'vancouver': 'America/Vancouver',
     'mexico city': 'America/Mexico_City',
-    'ciudad de mexico': 'America/Mexico_City',
-    'mexico df': 'America/Mexico_City'
+    'johannesburg': 'Africa/Johannesburg'
 };
+let alarms = [];
+let stopwatchInterval;
+let stopwatchStartTime = 0;
+let elapsedTime = 0;
+let timerInterval;
+let timerEndTime = 0;
+let timerPaused = false;
+let timerRemainingTime = 0;
+let alarmTimeout;
+let alarmSound;
+let isAlarmRinging = false;
 
-// Initialize timezone data
+// Initialize functionality based on current page
+document.addEventListener('DOMContentLoaded', function() {
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    
+    // Initialize shared components
+    initializeSocialSharing();
+    setActivePageIndicator();
+    
+    // Initialize features based on the current page
+    switch(currentPage) {
+        case 'index.html':
+            initializeClock();
+            break;
+        case 'stopwatch.html':
+            initializeStopwatch();
+            break;
+        case 'timer.html':
+            initializeTimer();
+            break;
+        case 'alarm.html':
+            initializeAlarm();
+            break;
+        case 'help.html':
+            loadHelpContent();
+            break;
+    }
+});
+
+// Active page indicator
+function setActivePageIndicator() {
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    const navButtons = document.querySelectorAll('.nav-buttons button');
+    
+    navButtons.forEach(button => {
+        const href = button.getAttribute('onclick').match(/'([^']+)'/)[1];
+        if (href === currentPage) {
+            button.classList.add('active');
+        } else {
+            button.classList.remove('active');
+        }
+    });
+}
+
+// Persistence utilities
+function saveToStorage(key, value) {
+    try {
+        localStorage.setItem(key, JSON.stringify(value));
+    } catch (e) {
+        console.error('Error saving to storage:', e);
+    }
+}
+
+function loadFromStorage(key) {
+    try {
+        const item = localStorage.getItem(key);
+        return item ? JSON.parse(item) : null;
+    } catch (e) {
+        console.error('Error loading from storage:', e);
+        return null;
+    }
+}
+
+// Clock functionality (index.html)
+function initializeClock() {
+    loadSavedTimezone();
+    initializeTimezones();
+    setInterval(updateClock, 1000);
+    updateClock();
+    
+    const citySearch = document.getElementById('citySearch');
+    if (citySearch) {
+        citySearch.addEventListener('input', handleCitySearch);
+    }
+}
+
+// Load and save timezone preference
+function loadSavedTimezone() {
+    const saved = localStorage.getItem('selectedTimezone');
+    if (saved) {
+        selectedTimezone = saved;
+    }
+}
+
+function saveTimezone(timezone) {
+    selectedTimezone = timezone;
+    localStorage.setItem('selectedTimezone', timezone);
+    updateClock();
+}
+
+// Initialize timezone search with persistence
 async function initializeTimezones() {
+    loadSavedTimezone();
     if (typeof Intl.supportedValuesOf === "function") {
         timezones = Intl.supportedValuesOf('timeZone');
     } else {
@@ -178,206 +172,322 @@ async function initializeTimezones() {
                      lowerTz.replace(/_/g, ' ').includes(searchTerm));
             })
             .map(tz => ({
-                displayName: formatCityName(tz),
+                displayName: tz.replace(/_/g, ' '),
                 timezone: tz
             }));
 
-        // Combine and limit results
-        const matches = [...cityMatches, ...tzMatches].slice(0, 10);
+        const matches = [...cityMatches, ...tzMatches];
 
-        if (matches.length > 0) {
-            searchResults.innerHTML = matches.map(match => 
-                `<div class="search-result-item" onclick="selectCity('${match.timezone}', '${match.displayName}')">${match.displayName}</div>`
-            ).join('');
-            searchResults.style.display = 'block';
-        } else {
+        if (matches.length === 0) {
             searchResults.style.display = 'none';
+            return;
         }
+
+        searchResults.innerHTML = matches.map(match => 
+            `<div class="search-result" data-timezone="${match.timezone}">${match.displayName}</div>`
+        ).join('');
+        searchResults.style.display = 'block';
+
+        document.querySelectorAll('.search-result').forEach(result => {
+            result.addEventListener('click', () => {
+                const timezone = result.getAttribute('data-timezone');
+                saveTimezone(timezone);
+                searchResults.style.display = 'none';
+                updateClock();
+            });
+        });
     });
-
-    // Hide results when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.search-container')) {
-            searchResults.style.display = 'none';
-        }
-    });
 }
 
-// Format city name for display
-function formatCityName(timezone) {
-    return timezone.split('/').pop().replace(/_/g, ' ');
-}
-
-// Handle city selection
-function selectCity(timezone, displayName) {
-    selectedTimezone = timezone;
-    document.getElementById('citySearch').value = displayName || formatCityName(timezone);
-    document.getElementById('citySearchResults').style.display = 'none';
-    updateClock(); // Update the clock immediately
-}
-
-// Update clock every second
 function updateClock() {
-    const now = new Date();
-    const options = {
-        timeZone: selectedTimezone,
-        timeStyle: 'medium',
-    };
-    const dateOptions = {
-        timeZone: selectedTimezone,
-        dateStyle: 'full'
-    };
+    const clockElement = document.getElementById('clock');
+    const dateElement = document.getElementById('date');
     
-    document.getElementById("clock").textContent = new Intl.DateTimeFormat('en-US', options).format(now);
-    document.getElementById("date").textContent = new Intl.DateTimeFormat('en-US', dateOptions).format(now);
+    if (!clockElement || !dateElement) return;
+    
+    const now = new Date();
+    const options = { timeZone: selectedTimezone };
+    
+    clockElement.textContent = now.toLocaleTimeString('en-US', {
+        ...options,
+        hour12: false,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    });
+    
+    dateElement.textContent = now.toLocaleDateString('en-US', {
+        ...options,
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
 }
 
 // Alarm functionality
-let alarmTimeout;
-let alarmSound;
-let isAlarmRinging = false;
-
-// Global alarms array for multiple alarms
-let alarms = [];
-
-// Modify setAlarm function to handle HH:MM:SS format
-function setAlarm() {
-  const hours = parseInt(document.getElementById("alarmHours").value) || 0;
-  const minutes = parseInt(document.getElementById("alarmMinutes").value) || 0;
-  const seconds = parseInt(document.getElementById("alarmSeconds").value) || 0;
-
-  if (hours === 0 && minutes === 0 && seconds === 0) {
-    alert("Please set a time for the alarm.");
-    return;
-  }
-
-  if (hours > 23 || minutes > 59 || seconds > 59) {
-    alert("Please enter valid time values.");
-    return;
-  }
-
-  const now = new Date();
-  let alarmDate = new Date(now);
-  alarmDate.setHours(hours);
-  alarmDate.setMinutes(minutes);
-  alarmDate.setSeconds(seconds);
-  
-  // If the time has already passed today, set it for tomorrow
-  if (alarmDate < now) {
-    alarmDate.setDate(alarmDate.getDate() + 1);
-  }
-
-  const timeToAlarm = alarmDate - now;
-  const alarmId = Date.now();
-  const timeout = setTimeout(() => {
-    playAlarm();
-    removeAlarm(alarmId);
-    document.getElementById("stopAlarm").style.display = "inline-block";
-  }, timeToAlarm);
-  
-  // Store alarm details with formatted time
-  alarms.push({ 
-    id: alarmId, 
-    time: alarmDate, 
-    timeout: timeout 
-  });
-  
-  // Reset input fields
-  document.getElementById("alarmHours").value = "";
-  document.getElementById("alarmMinutes").value = "";
-  document.getElementById("alarmSeconds").value = "";
-  
-  updateAlarmList();
+function initializeAlarm() {
+    loadSavedAlarms();
+    initializeAudio();
 }
 
-// Update the updateAlarmList function to show time in 24-hour format
-function updateAlarmList() {
-  const list = document.getElementById("alarmList");
-  list.innerHTML = ""; // Clear existing list
-  alarms.forEach(alarm => {
-    const timeString = alarm.time.toLocaleTimeString('en-US', { 
-      hour12: false,
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit'
+function loadSavedAlarms() {
+    const savedAlarms = loadFromStorage('alarms');
+    if (!savedAlarms) return;
+
+    alarms = savedAlarms.map(data => {
+        const time = new Date(data.time);
+        const now = new Date();
+        let timeToAlarm = time - now;
+        
+        // If alarm time has passed, schedule for next occurrence
+        if (timeToAlarm <= 0) {
+            time.setDate(time.getDate() + 1);
+            timeToAlarm = time - now;
+        }
+        
+        const timeout = setTimeout(() => {
+            playAlarm();
+            removeAlarm(data.id);
+            const stopButton = document.getElementById('stopAlarm');
+            if (stopButton) {
+                stopButton.style.display = 'inline-block';
+            }
+        }, timeToAlarm);
+        
+        return {
+            id: data.id,
+            time: time,
+            timeout: timeout
+        };
     });
-    list.innerHTML += `<div class="alarm-item" id="alarm-${alarm.id}">
-      ${timeString} 
-      <button onclick="removeAlarm(${alarm.id})">Cancel</button>
-    </div>`;
-  });
-}
-
-// Cancel and remove an individual alarm by id
-function removeAlarm(alarmId) {
-  const index = alarms.findIndex(alarm => alarm.id === alarmId);
-  if (index !== -1) {
-    clearTimeout(alarms[index].timeout);
-    alarms.splice(index, 1);
+    
     updateAlarmList();
-  }
 }
 
-// Cancel all pending alarms and update the list
+function saveAlarms() {
+    const alarmsData = alarms.map(alarm => ({
+        id: alarm.id,
+        time: alarm.time.getTime()
+    }));
+    saveToStorage('alarms', alarmsData);
+}
+
+function setAlarm() {
+    const hours = parseInt(document.getElementById('alarmHours').value) || 0;
+    const minutes = parseInt(document.getElementById('alarmMinutes').value) || 0;
+    const seconds = parseInt(document.getElementById('alarmSeconds').value) || 0;
+
+    if (hours === 0 && minutes === 0 && seconds === 0) {
+        alert('Please set a time for the alarm.');
+        return;
+    }
+
+    if (hours > 23 || minutes > 59 || seconds > 59) {
+        alert('Please enter valid time values.');
+        return;
+    }
+
+    const now = new Date();
+    let alarmDate = new Date(now);
+    alarmDate.setHours(hours);
+    alarmDate.setMinutes(minutes);
+    alarmDate.setSeconds(seconds);
+    alarmDate.setMilliseconds(0);
+    
+    if (alarmDate < now) {
+        alarmDate.setDate(alarmDate.getDate() + 1);
+    }
+
+    const timeToAlarm = alarmDate - now;
+    const alarmId = Date.now();
+    const timeout = setTimeout(() => {
+        playAlarm();
+        removeAlarm(alarmId);
+        const stopButton = document.getElementById('stopAlarm');
+        if (stopButton) {
+            stopButton.style.display = 'inline-block';
+        }
+    }, timeToAlarm);
+    
+    alarms.push({ 
+        id: alarmId, 
+        time: alarmDate, 
+        timeout: timeout 
+    });
+    
+    // Clear input fields
+    ['alarmHours', 'alarmMinutes', 'alarmSeconds'].forEach(id => {
+        const input = document.getElementById(id);
+        if (input) {
+            input.value = '';
+        }
+    });
+    
+    updateAlarmList();
+    saveAlarms();
+}
+
+function removeAlarm(alarmId) {
+    const alarm = alarms.find(a => a.id === alarmId);
+    if (alarm) {
+        clearTimeout(alarm.timeout);
+    }
+    alarms = alarms.filter(a => a.id !== alarmId);
+    updateAlarmList();
+    saveAlarms();
+}
+
 function stopAlarmAll() {
-  alarms.forEach(alarm => clearTimeout(alarm.timeout));
-  alarms = [];
-  updateAlarmList();
-  stopAlarm(); // Stop ringing alarm if active
+    alarms.forEach(alarm => clearTimeout(alarm.timeout));
+    alarms = [];
+    updateAlarmList();
+    stopAlarm();
+    saveAlarms();
 }
 
 function playAlarm() {
-  alarmSound = document.getElementById("alarmSound");
-  alarmSound.muted = false; // ensure audio is unmuted
-  
-  // Directly attempt to play without calling load()
-  const playPromise = alarmSound.play();
-
-  if (playPromise !== undefined) {
-    playPromise.then(_ => {
-      isAlarmRinging = true;
-    }).catch(error => {
-      console.error('Playback failed:', error);
-      alert('Playback failed. Please ensure autoplay is enabled in your browser and you have interacted with the page.');
-    });
-  }
-}
-
-function testSound() {
-  alarmSound = document.getElementById("alarmSound");
-  alarmSound.currentTime = 0;
-  playAlarm();
-  setTimeout(stopAlarm, 2000); // Stop after 2 seconds
+    if (!alarmSound) {
+        alarmSound = document.getElementById('alarmSound');
+    }
+    if (alarmSound) {
+        alarmSound.currentTime = 0;
+        isAlarmRinging = true;
+        const playPromise = alarmSound.play();
+        if (playPromise) {
+            playPromise.catch(error => {
+                console.error('Error playing alarm:', error);
+                isAlarmRinging = false;
+                showVisualAlert();
+            });
+        }
+    } else {
+        showVisualAlert();
+    }
 }
 
 function stopAlarm() {
-  if (isAlarmRinging) {
-    alarmSound.pause();
-    alarmSound.currentTime = 0;
+    if (!alarmSound) {
+        alarmSound = document.getElementById('alarmSound');
+    }
+    if (alarmSound) {
+        alarmSound.pause();
+        alarmSound.currentTime = 0;
+    }
     isAlarmRinging = false;
-  }
-  document.getElementById("stopAlarm").style.display = "none";
+    const stopButton = document.getElementById('stopAlarm');
+    if (stopButton) {
+        stopButton.style.display = 'none';
+    }
 }
 
-// Stopwatch variables
-let stopwatchInterval;
-let stopwatchStartTime = 0;
-let elapsedTime = 0;
+function testSound() {
+    if (!alarmSound) {
+        alarmSound = document.getElementById('alarmSound');
+    }
+    if (alarmSound) {
+        alarmSound.currentTime = 0;
+        const playPromise = alarmSound.play();
+        if (playPromise) {
+            playPromise.then(() => {
+                setTimeout(() => {
+                    if (!isAlarmRinging) {
+                        alarmSound.pause();
+                        alarmSound.currentTime = 0;
+                    }
+                }, 2000);
+            }).catch(error => {
+                console.error('Error testing alarm sound:', error);
+            });
+        }
+    }
+}
+
+function updateAlarmList() {
+    const list = document.getElementById('alarmList');
+    if (!list) return;
+
+    list.innerHTML = '';
+    alarms.sort((a, b) => a.time - b.time).forEach(alarm => {
+        const timeString = alarm.time.toLocaleTimeString('en-US', { 
+            hour12: false,
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+        list.innerHTML += `<div class="alarm-item" id="alarm-${alarm.id}">
+            ${timeString} 
+            <button onclick="removeAlarm(${alarm.id})" aria-label="Cancel alarm set for ${timeString}">Cancel</button>
+        </div>`;
+    });
+}
+
+// Stopwatch persistence
+function saveStopwatchState() {
+    const state = {
+        isRunning: !!stopwatchInterval,
+        elapsed: elapsedTime
+    };
+    if (!state.isRunning) {
+        // Clear state when stopwatch is stopped
+        localStorage.removeItem('stopwatchState');
+    } else {
+        localStorage.setItem('stopwatchState', JSON.stringify(state));
+    }
+}
+
+function loadStopwatchState() {
+    const saved = localStorage.getItem('stopwatchState');
+    if (!saved) return;
+
+    const state = JSON.parse(saved);
+    if (state.isRunning) {
+        stopwatchStartTime = Date.now() - state.elapsed;
+        stopwatchInterval = setInterval(updateStopwatch, 10);
+        const button = document.getElementById('startStopButton');
+        if (button) {
+            button.textContent = 'Stop';
+        }
+    } else {
+        elapsedTime = state.elapsed || 0;
+        updateStopwatch();
+    }
+}
 
 // Stopwatch functions
+function initializeStopwatch() {
+    clearInterval(stopwatchInterval);
+    stopwatchInterval = null;
+    elapsedTime = 0;
+    stopwatchStartTime = 0;
+    const startStopBtn = document.getElementById('startStopButton');
+    if (startStopBtn) {
+        startStopBtn.textContent = 'Start';
+    }
+    const stopwatchDisplay = document.getElementById('stopwatch');
+    if (stopwatchDisplay) {
+        stopwatchDisplay.textContent = '00:00:00.00';
+    }
+    // Only load saved state if there was an active stopwatch
+    const savedState = loadFromStorage('stopwatchState');
+    if (savedState && savedState.isRunning) {
+        loadStopwatchState();
+    }
+}
+
 function toggleStopwatch() {
     const button = document.getElementById('startStopButton');
-    if (!stopwatchInterval) {
-        // Start the stopwatch
-        stopwatchStartTime = Date.now() - elapsedTime;
-        stopwatchInterval = setInterval(updateStopwatch, 1); // Update every millisecond
+    if (!button) return;
+
+    if (button.textContent === 'Start') {
         button.textContent = 'Stop';
+        stopwatchStartTime = Date.now() - elapsedTime;
+        stopwatchInterval = setInterval(updateStopwatch, 10);
     } else {
-        // Stop the stopwatch
-        clearInterval(stopwatchInterval);
-        stopwatchInterval = null;
         button.textContent = 'Start';
+        clearInterval(stopwatchInterval);
     }
+    saveStopwatchState();
 }
 
 function resetStopwatch() {
@@ -387,6 +497,7 @@ function resetStopwatch() {
     elapsedTime = 0;
     document.getElementById('stopwatch').textContent = "00:00:00.00";
     button.textContent = 'Start';
+    saveStopwatchState();
 }
 
 function updateStopwatch() {
@@ -401,14 +512,50 @@ function updateStopwatch() {
         (minutes < 10 ? '0' + minutes : minutes) + ':' +
         (seconds < 10 ? '0' + seconds : seconds) + '.' +
         (milliseconds < 10 ? '0' + milliseconds : milliseconds);
+        
+    saveStopwatchState();
 }
 
-// Timer variables
-let timerInterval;
-let timerEndTime = 0;
-let timerPaused = false;
-let timerRemainingTime = 0;
+// Timer state persistence
+function saveTimerState() {
+    const state = {
+        endTime: timerEndTime,
+        isPaused: timerPaused,
+        remainingTime: timerRemainingTime,
+        isRunning: !!timerInterval
+    };
+    saveToStorage('timerState', state);
+}
 
+function loadTimerState() {
+    const state = loadFromStorage('timerState');
+    if (!state) return;
+
+    if (state.isRunning && !state.isPaused) {
+        const now = Date.now();
+        if (state.endTime > now) {
+            timerEndTime = state.endTime;
+            timerInterval = setInterval(updateTimer, 10);
+            document.getElementById('startTimerBtn').style.display = 'none';
+            document.getElementById('pauseTimerBtn').style.display = 'inline-block';
+        }
+    } else if (state.isPaused && state.remainingTime > 0) {
+        timerPaused = true;
+        timerRemainingTime = state.remainingTime;
+        const timeInMs = state.remainingTime;
+        const hours = Math.floor(timeInMs / 3600000);
+        const minutes = Math.floor((timeInMs % 3600000) / 60000);
+        const seconds = Math.floor((timeInMs % 60000) / 1000);
+        
+        document.getElementById('timerHours').value = hours;
+        document.getElementById('timerMinutes').value = minutes;
+        document.getElementById('timerSeconds').value = seconds;
+        document.getElementById('timer').textContent = 
+            `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+}
+
+// Update timer functions to persist state
 function startTimer() {
     const hours = parseInt(document.getElementById('timerHours').value) || 0;
     const minutes = parseInt(document.getElementById('timerMinutes').value) || 0;
@@ -431,6 +578,7 @@ function startTimer() {
     
     timerInterval = setInterval(updateTimer, 10);
     timerPaused = false;
+    saveTimerState();
 }
 
 function updateTimer() {
@@ -442,6 +590,7 @@ function updateTimer() {
         document.getElementById('startTimerBtn').style.display = 'inline-block';
         document.getElementById('pauseTimerBtn').style.display = 'none';
         playAlarm();
+        saveTimerState();
         return;
     }
     
@@ -453,6 +602,8 @@ function updateTimer() {
         (hours ? (hours < 10 ? '0' + hours : hours) + ':' : '00:') +
         (minutes < 10 ? '0' + minutes : minutes) + ':' +
         (seconds < 10 ? '0' + seconds : seconds);
+    
+    saveTimerState();
 }
 
 function pauseTimer() {
@@ -461,6 +612,7 @@ function pauseTimer() {
     timerRemainingTime = timerEndTime - Date.now();
     document.getElementById('startTimerBtn').style.display = 'inline-block';
     document.getElementById('pauseTimerBtn').style.display = 'none';
+    saveTimerState();
 }
 
 function resetTimer() {
@@ -474,25 +626,65 @@ function resetTimer() {
     document.getElementById('startTimerBtn').style.display = 'inline-block';
     document.getElementById('pauseTimerBtn').style.display = 'none';
     stopAlarm();
+    saveTimerState();
 }
 
-// Section toggling functionality
-function showSection(section) {
-    // Hide all sections
-    document.getElementById('timeSection').style.display = 'none';
-    document.getElementById('stopwatchSection').style.display = 'none';
-    document.getElementById('timerSection').style.display = 'none';
-    document.getElementById('alarmSection').style.display = 'none';
-    document.getElementById('helpSection').style.display = 'none';
-    
-    // Show the selected section
-    const sectionElement = document.getElementById(section + 'Section');
-    if (sectionElement) {
-        sectionElement.style.display = 'flex';
-        if (section === 'help') {
-            loadHelpContent();
-        }
+function restartTimer() {
+    // Stop any playing alarm sound first
+    stopAlarm();
+
+    // Store current input values
+    const hours = parseInt(document.getElementById('timerHours').value) || 0;
+    const minutes = parseInt(document.getElementById('timerMinutes').value) || 0;
+    const seconds = parseInt(document.getElementById('timerSeconds').value) || 0;
+
+    if (hours === 0 && minutes === 0 && seconds === 0) {
+        alert('Please set a time for the timer');
+        return;
     }
+
+    // Reset and start with the current values
+    clearInterval(timerInterval);
+    timerPaused = false;
+    const totalMilliseconds = (hours * 3600 + minutes * 60 + seconds) * 1000;
+    timerEndTime = Date.now() + totalMilliseconds;
+    
+    document.getElementById('startTimerBtn').style.display = 'none';
+    document.getElementById('pauseTimerBtn').style.display = 'inline-block';
+    
+    timerInterval = setInterval(updateTimer, 10);
+    saveTimerState();
+}
+
+// Timer functionality (timer.html)
+function initializeTimer() {
+    // Clear any previous timer state
+    clearInterval(timerInterval);
+    timerPaused = false;
+    timerRemainingTime = 0;
+    
+    // Reset display
+    const timerDisplay = document.getElementById('timer');
+    if (timerDisplay) {
+        timerDisplay.textContent = '00:00:00';
+    }
+    
+    // Reset input fields
+    ['timerHours', 'timerMinutes', 'timerSeconds'].forEach(id => {
+        const input = document.getElementById(id);
+        if (input) {
+            input.value = '';
+        }
+    });
+    
+    // Reset button states
+    const startBtn = document.getElementById('startTimerBtn');
+    const pauseBtn = document.getElementById('pauseTimerBtn');
+    if (startBtn) startBtn.style.display = 'inline-block';
+    if (pauseBtn) pauseBtn.style.display = 'none';
+
+    loadTimerState();
+    initializeAudio();
 }
 
 // Help section functionality
@@ -610,39 +802,176 @@ function markdownToHtml(markdown) {
         ).join('\n');
 }
 
+// Initialize social sharing functionality
+function initializeSocialSharing() {
+    // Add event listeners for social sharing buttons if needed
+}
+
 // Social sharing functions
 function shareOnFacebook() {
     const url = encodeURIComponent(window.location.href);
-    const title = encodeURIComponent('Check out this awesome virtual clock!');
+    const title = encodeURIComponent('Check out bbclock - an awesome virtual clock!');
     window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${title}`, '_blank');
 }
 
 function shareOnTwitter() {
     const url = encodeURIComponent(window.location.href);
-    const text = encodeURIComponent('Check out this awesome virtual clock with timezone search, stopwatch, timer, and alarm features!');
+    const text = encodeURIComponent('Check out bbclock - featuring world clock, timezone search, stopwatch, timer, and alarm features!');
     window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
 }
 
 function shareOnPinterest() {
     const url = encodeURIComponent(window.location.href);
-    const description = encodeURIComponent('Virtual Clock - Online Clock with Stopwatch and Alarm');
+    const description = encodeURIComponent('bbclock - Online Clock with Stopwatch and Alarm');
     const media = encodeURIComponent(window.location.origin + '/favicon-svg.svg');
     window.open(`https://pinterest.com/pin/create/button/?url=${url}&media=${media}&description=${description}`, '_blank');
 }
 
 function shareOnReddit() {
     const url = encodeURIComponent(window.location.href);
-    const title = encodeURIComponent('Virtual Clock - Online Clock with Stopwatch and Alarm');
+    const title = encodeURIComponent('bbclock - Online Clock with Stopwatch and Alarm');
     window.open(`https://reddit.com/submit?url=${url}&title=${title}`, '_blank');
 }
 
 function shareOnLinkedIn() {
     const url = encodeURIComponent(window.location.href);
-    const title = encodeURIComponent('Virtual Clock - Online Clock with Stopwatch and Alarm');
-    window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}`, '_blank');
+    const title = encodeURIComponent('bbclock - Online Clock with Stopwatch and Alarm');
+    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
 }
 
-// Initialize everything
-initializeTimezones();
-setInterval(updateClock, 1000);
-updateClock();
+// Add visibility change and error handling
+document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'visible') {
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        switch(currentPage) {
+            case 'index.html':
+                updateClock();
+                break;
+            case 'stopwatch.html':
+                initializeStopwatch(); // Use initialize instead of load
+                break;
+            case 'timer.html':
+                loadTimerState();
+                break;
+            case 'alarm.html':
+                loadSavedAlarms();
+                break;
+        }
+    }
+});
+
+// Error handling for async operations
+window.addEventListener('unhandledrejection', function(event) {
+    console.error('Unhandled promise rejection:', event.reason);
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    switch(currentPage) {
+        case 'stopwatch.html':
+            resetStopwatch();
+            break;
+        case 'timer.html':
+            resetTimer();
+            break;
+        case 'alarm.html':
+            stopAlarmAll();
+            break;
+    }
+});
+
+// Save states before page unload
+window.addEventListener('beforeunload', function() {
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    switch(currentPage) {
+        case 'stopwatch.html':
+            saveStopwatchState();
+            break;
+        case 'timer.html':
+            saveTimerState();
+            break;
+        case 'alarm.html':
+            saveAlarms();
+            break;
+    }
+});
+
+function handleCitySearch(event) {
+    const searchTerm = event.target.value.toLowerCase().trim();
+    const searchResults = document.getElementById('citySearchResults');
+
+    if (searchTerm.length < 2) {
+        searchResults.style.display = 'none';
+        return;
+    }
+
+    // Search in city mappings first
+    const cityMatches = Object.entries(cityMappings)
+        .filter(([city]) => city.includes(searchTerm))
+        .map(([city, tz]) => ({
+            displayName: city.charAt(0).toUpperCase() + city.slice(1),
+            timezone: tz
+        }));
+
+    // Then search in timezone names
+    const tzMatches = timezones
+        .filter(tz => {
+            const lowerTz = tz.toLowerCase();
+            return !cityMatches.some(match => match.timezone === tz) && // Avoid duplicates
+                (lowerTz.includes(searchTerm) ||
+                 lowerTz.replace(/_/g, ' ').includes(searchTerm));
+        })
+        .map(tz => ({
+            displayName: tz.replace(/_/g, ' '),
+            timezone: tz
+        }));
+
+    const allMatches = [...cityMatches, ...tzMatches].slice(0, 10); // Limit to 10 results
+
+    if (allMatches.length === 0) {
+        searchResults.style.display = 'none';
+        return;
+    }
+
+    searchResults.innerHTML = allMatches
+        .map(match => `<div class="search-result-item" data-timezone="${match.timezone}">
+            ${match.displayName}
+        </div>`)
+        .join('');
+    
+    searchResults.style.display = 'block';
+
+    // Add click handlers to search results
+    document.querySelectorAll('.search-result-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const timezone = item.getAttribute('data-timezone');
+            saveTimezone(timezone);
+            searchResults.style.display = 'none';
+            event.target.value = item.textContent.trim();
+        });
+    });
+}
+
+// Audio initialization with permission handling
+async function initializeAudio() {
+    alarmSound = document.getElementById('alarmSound');
+    if (!alarmSound) return;
+
+    try {
+        await alarmSound.load();
+    } catch (error) {
+        console.warn('Audio loading error:', error);
+    }
+}
+
+function showVisualAlert() {
+    const alertId = 'visual-alert';
+    if (document.getElementById(alertId)) return;
+    
+    const visualAlert = document.createElement('div');
+    visualAlert.id = alertId;
+    visualAlert.className = 'visual-alert';
+    visualAlert.textContent = '⏰ ALARM!';
+    document.body.appendChild(visualAlert);
+    
+    setTimeout(() => {
+        visualAlert.remove();
+    }, 5000);
+}
