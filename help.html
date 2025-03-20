@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <a href="#main" class="skip-to-main">Skip to main content</a>
     <header>
       <div class="header-content">
         <div class="site-name">bbclock</div>
@@ -65,7 +66,13 @@
         <span class="copyright">&copy; 2024 bbclock. All rights reserved.</span>
       </div>
     </footer>
-
+    
+    <div id="alertContainer" class="alert-container"></div>
+    
     <script src="script.js"></script>
+    <audio id="alarmSound" loop>
+      <source src="https://cdn.pixabay.com/audio/2021/08/04/audio_c668156e64.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
 </body>
 </html>

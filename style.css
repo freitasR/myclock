@@ -6,7 +6,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
     margin: 0;
-    font-size: 28px;
+    font-size: 18px;  /* Reduced from 24px */
     animation: fadeIn 0.3s ease-in;
 }
 
@@ -25,7 +25,7 @@ main {
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     width: 100%;
-    max-width: 600px;
+    max-width: 450px;  /* Reduced from 500px */
 }
 
 .clock-container:hover {
@@ -34,11 +34,11 @@ main {
 }
 
 .clock-display {
-    font-size: 72px;
+    font-size: 56px;  /* Reduced from 64px */
     font-weight: bold;
     margin: 1rem 0;
-    color: #00fff5;
-    text-shadow: 0 0 10px rgba(0, 255, 245, 0.3);
+    color: #ffffff;  /* Changed from #00fff5 */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
 .controls {
@@ -86,8 +86,8 @@ button:disabled {
 
 .alarm-input:focus {
     outline: none;
-    border-color: #00fff5;
-    box-shadow: 0 0 5px rgba(0, 255, 245, 0.3);
+    border-color: #3498db;  /* Changed from #00fff5 */
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);  /* Changed from rgba(0, 255, 245, 0.3) */
 }
 
 .container {
@@ -115,13 +115,13 @@ button:disabled {
     font-size: 48px;
     font-weight: bold;
     margin: 1rem 0;
-    color: #00fff5;
-    text-shadow: 0 0 10px rgba(0, 255, 245, 0.3);
+    color: #ffffff;  /* Changed from #00fff5 */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
 .date-display {
     font-size: 1.2rem;
-    color: #00fff5;
+    color: #ffffff;  /* Changed from #00fff5 */
     margin-top: 0.5rem;
 }
 
@@ -145,8 +145,8 @@ button:disabled {
 
 .city-search:focus {
     outline: none;
-    border-color: #00fff5;
-    box-shadow: 0 0 5px rgba(0, 255, 245, 0.3);
+    border-color: #3498db;  /* Changed from #00fff5 */
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);  /* Changed from rgba(0, 255, 245, 0.3) */
 }
 
 .search-results {
@@ -177,7 +177,7 @@ button:disabled {
 
 .search-result-item:hover {
     background: #533483;
-    color: #00fff5;
+    color: #3498db;  /* Changed from #00fff5 */
 }
 
 .nav-buttons {
@@ -213,7 +213,7 @@ button:disabled {
     left: 0;
     width: 100%;
     height: 2px;
-    background-color: #00fff5;
+    background-color: #3498db;  /* Changed from #00fff5 */
     transform: scaleX(0);
     transition: transform 0.3s ease;
 }
@@ -223,15 +223,15 @@ button:disabled {
 }
 
 .nav-buttons button[onclick*=".html"].active {
-    color: #00fff5;
-    box-shadow: 0 0 15px rgba(0, 255, 245, 0.2);
+    color: #3498db;  /* Changed from #00fff5 */
+    box-shadow: 0 0 15px rgba(52, 152, 219, 0.2);  /* Changed from rgba(0, 255, 245, 0.2) */
     transform: scaleX(1);
 }
 
 /* Navigation styles with active state */
 .nav-buttons button.active {
-    color: #00fff5;
-    box-shadow: 0 0 15px rgba(0, 255, 245, 0.2);
+    color: #3498db;  /* Changed from #00fff5 */
+    box-shadow: 0 0 15px rgba(52, 152, 219, 0.2);  /* Changed from rgba(0, 255, 245, 0.2) */
 }
 
 .nav-buttons button::after {
@@ -241,7 +241,7 @@ button:disabled {
     left: 0;
     width: 100%;
     height: 2px;
-    background-color: #00fff5;
+    background-color: #3498db;  /* Changed from #00fff5 */
     transform: scaleX(0);
     transform-origin: right;
     transition: transform 0.3s ease;
@@ -277,10 +277,10 @@ button:disabled {
 }
 
 .site-name {
-    color: #00fff5;
+    color: #3498db;  /* Changed from #00fff5 */
     font-size: 1.8rem;
     font-weight: bold;
-    text-shadow: 0 0 10px rgba(0, 255, 245, 0.3);
+    text-shadow: 0 0 10px rgba(52, 152, 219, 0.3);  /* Changed from rgba(0, 255, 245, 0.3) */
 }
 
 .nav-buttons {
@@ -303,7 +303,7 @@ button:disabled {
 
 @media (max-width: 768px) {
     body {
-        font-size: 20px;
+        font-size: 16px;  /* Reduced from 20px */
     }
 
     .nav-buttons {
@@ -371,11 +371,15 @@ button:disabled {
     .site-name {
         font-size: 1.5rem;
     }
+
+    .clock-display {
+        font-size: 48px;  /* Reduced from 56px */
+    }
 }
 
 @media (max-width: 480px) {
     body {
-        font-size: 16px;
+        font-size: 14px;  /* Reduced from 16px */
     }
 
     .nav-buttons {
@@ -391,7 +395,7 @@ button:disabled {
     .clock-container h1,
     .stopwatch-display,
     .timer-display {
-        font-size: 2.5rem;
+        font-size: 2rem;  /* Reduced from 2.5rem */
     }
 
     .timer-input-container {
@@ -448,7 +452,7 @@ button:disabled {
 /* Enhanced responsive styles */
 @media (max-width: 768px) {
     body {
-        font-size: 20px;
+        font-size: 16px;
     }
 
     .nav-buttons {
@@ -510,7 +514,7 @@ button:disabled {
 
 @media (max-width: 480px) {
     body {
-        font-size: 16px;
+        font-size: 14px;
     }
 
     .nav-buttons {
@@ -526,7 +530,7 @@ button:disabled {
     .clock-container h1,
     .stopwatch-display,
     .timer-display {
-        font-size: 2.5rem;
+        font-size: 2rem;
     }
 
     .timer-input-container {
@@ -618,12 +622,12 @@ button:disabled {
 
 .timer-input-container input:focus {
     outline: none;
-    border-color: #00fff5;
-    box-shadow: 0 0 5px rgba(0, 255, 245, 0.3);
+    border-color: #3498db;  /* Changed from #00fff5 */
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);  /* Changed from rgba(0, 255, 245, 0.3) */
 }
 
 .timer-input-container span {
-    color: #00fff5;
+    color: #3498db;  /* Changed from #00fff5 */
     font-weight: bold;
 }
 
@@ -631,8 +635,8 @@ button:disabled {
     font-size: 48px;
     font-weight: bold;
     margin: 1rem 0;
-    color: #00fff5;
-    text-shadow: 0 0 10px rgba(0, 255, 245, 0.3);
+    color: #ffffff;  /* Changed from #00fff5 */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
 /* Remove spinner buttons from number inputs */
@@ -734,27 +738,27 @@ button:disabled {
 .help-content {
     color: #e6e6e6;
     line-height: 1.6;
-    font-size: 1rem;
+    font-size: 0.9rem;  /* Reduced from 1rem */
 }
 
 .help-content h1 {
-    color: #00fff5;
-    font-size: 2rem;
+    color: #3498db;  /* Changed from #00fff5 */
+    font-size: 1.8rem;  /* Reduced from 2rem */
     margin-bottom: 1.5rem;
     text-align: center;
 }
 
 .help-content h2 {
-    color: #00fff5;
-    font-size: 1.5rem;
+    color: #3498db;  /* Changed from #00fff5 */
+    font-size: 1.3rem;  /* Reduced from 1.5rem */
     margin: 2rem 0 1rem;
     padding-bottom: 0.5rem;
     border-bottom: 2px solid #533483;
 }
 
 .help-content h3 {
-    color: #00fff5;
-    font-size: 1.2rem;
+    color: #3498db;  /* Changed from #00fff5 */
+    font-size: 1.1rem;  /* Reduced from 1.2rem */
     margin: 1.5rem 0 1rem;
 }
 
@@ -779,12 +783,12 @@ button:disabled {
 }
 
 .help-content em {
-    color: #00fff5;
+    color: #3498db;  /* Changed from #00fff5 */
     font-style: italic;
 }
 
 .help-content strong {
-    color: #00fff5;
+    color: #3498db;  /* Changed from #00fff5 */
     font-weight: bold;
 }
 
@@ -860,7 +864,7 @@ footer {
 }
 
 .footer-bottom a:hover {
-    color: #00fff5;
+    color: #3498db;  /* Changed from #00fff5 */
 }
 
 .separator {
@@ -889,7 +893,7 @@ footer {
     left: 50%;
     transform: translateX(-50%);
     background: rgba(15, 52, 96, 0.95);
-    color: #00fff5;
+    color: #3498db;  /* Changed from #00fff5 */
     padding: 1rem 2rem;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
@@ -905,11 +909,11 @@ footer {
     left: 50%;
     transform: translate(-50%, -50%);
     background: #533483;
-    color: #00fff5;
+    color: #3498db;  /* Changed from #00fff5 */
     padding: 2rem;
     border-radius: 20px;
     font-size: 2rem;
-    box-shadow: 0 0 30px rgba(0, 255, 245, 0.3);
+    box-shadow: 0 0 30px rgba(52, 152, 219, 0.3);  /* Changed from rgba(0, 255, 245, 0.3) */
     z-index: 1000;
     animation: pulse 1s infinite;
 }
@@ -932,8 +936,8 @@ footer {
 /* Timer and alarm input focus states */
 .timer-input-container input:focus,
 .alarm-input-container input:focus {
-    border-color: #00fff5;
-    box-shadow: 0 0 10px rgba(0, 255, 245, 0.2);
+    border-color: #3498db;  /* Changed from #00fff5 */
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.2);  /* Changed from rgba(0, 255, 245, 0.2) */
     outline: none;
 }
 
@@ -950,15 +954,15 @@ button:active {
 button:focus-visible,
 input:focus-visible,
 .search-result-item:focus-visible {
-    outline: 2px solid #00fff5;
+    outline: 2px solid #3498db;  /* Changed from #00fff5 */
     outline-offset: 2px;
-    box-shadow: 0 0 10px rgba(0, 255, 245, 0.3);
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.3);  /* Changed from rgba(0, 255, 245, 0.3) */
 }
 
 /* Keyboard navigation */
 .search-result-item:focus {
     background: #533483;
-    color: #00fff5;
+    color: #3498db;  /* Changed from #00fff5 */
     outline: none;
 }
 
@@ -982,8 +986,8 @@ input:focus-visible,
 /* Active states for interactive elements */
 .button-active {
     background: #533483;
-    color: #00fff5;
-    box-shadow: 0 0 15px rgba(0, 255, 245, 0.2);
+    color: #3498db;  /* Changed from #00fff5 */
+    box-shadow: 0 0 15px rgba(52, 152, 219, 0.2);  /* Changed from rgba(0, 255, 245, 0.2) */
 }
 
 /* Visual feedback for interactions */
@@ -1007,8 +1011,8 @@ input:focus-visible,
 }
 
 .status-active {
-    background: #00fff5;
-    box-shadow: 0 0 10px rgba(0, 255, 245, 0.5);
+    background: #3498db;  /* Changed from #00fff5 */
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);  /* Changed from rgba(0, 255, 245, 0.5) */
 }
 
 .status-inactive {
@@ -1022,7 +1026,7 @@ input:focus-visible,
     left: 50%;
     transform: translateX(-50%);
     background: rgba(15, 52, 96, 0.95);
-    color: #00fff5;
+    color: #3498db;  /* Changed from #00fff5 */
     padding: 1rem 2rem;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
@@ -1031,7 +1035,7 @@ input:focus-visible,
 }
 
 .toast.success {
-    border-left: 4px solid #00fff5;
+    border-left: 4px solid #3498db;  /* Changed from #00fff5 */
 }
 
 .toast.error {
@@ -1044,7 +1048,7 @@ input:invalid {
 }
 
 input:valid {
-    border-color: #00fff5;
+    border-color: #3498db;  /* Changed from #00fff5 */
 }
 
 /* Loading states */
@@ -1061,7 +1065,7 @@ input:valid {
     width: 20px;
     height: 20px;
     margin: -10px 0 0 -10px;
-    border: 2px solid #00fff5;
+    border: 2px solid #3498db;  /* Changed from #00fff5 */
     border-top-color: transparent;
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
@@ -1078,7 +1082,7 @@ input:valid {
     left: 50%;
     transform: translateX(-50%);
     background: #533483;
-    color: #00fff5;
+    color: #3498db;  /* Changed from #00fff5 */
     padding: 1rem;
     border-radius: 0 0 8px 8px;
     transition: top 0.3s;
@@ -1087,4 +1091,5 @@ input:valid {
 
 .skip-to-main:focus {
     top: 0;
+    color: #3498db;  /* Changed from #00fff5 */
 }

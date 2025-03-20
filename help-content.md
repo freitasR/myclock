@@ -6,7 +6,7 @@ bbclock is a versatile time management application offering multiple features th
 - **Time**: Access the world clock with timezone search (Home page)
 - **Stopwatch**: Precise timing with millisecond accuracy
 - **Timer**: Countdown timer with hours, minutes, and seconds
-- **Alarm**: Set multiple alarms with custom times
+- **Alarm**: Set multiple alarms with visual and audio alerts
 - **Help**: Access this documentation
 
 ## World Clock (Home Page)
@@ -37,19 +37,37 @@ Set countdowns easily on the timer page:
 3. Click "Start" to begin countdown
 4. Use "Pause" to temporarily stop
 5. "Reset" to clear the timer
-- Audio alert when timer reaches zero
+- Visual and audio alert when timer reaches zero
 - Supports time entry from 1 second to 99 hours
 
 ## Alarm Feature
 Manage multiple alarms from the dedicated alarm page:
+
+### Setting an Alarm
 1. Visit the Alarm page
 2. Set your desired alarm time using hours (0-23), minutes, and seconds
 3. Click "Set Alarm" to create
-4. Use "Cancel" on individual alarms or "Cancel All Alarms" to clear all
+4. Your alarm will appear in the list below
+
+### Managing Alarms
 - Set multiple alarms simultaneously
 - Each alarm shows in 24-hour format
-- Test sound feature available
-- Alarms persist until manually stopped
+- Use "Stop Sound" to silence a ringing alarm
+- "Test Sound" to verify your audio settings
+- "Cancel All" to remove all scheduled alarms
+
+### Alarm Notifications
+When an alarm triggers:
+- A visual alert appears on screen
+- An audio alert plays (only on the alarm page)
+- Click "Stop Alarm" to dismiss the alert
+
+## Design Features
+- Clean, modern interface with light theme
+- High contrast for better readability
+- Responsive design for all screen sizes
+- Accessibility features including keyboard navigation
+- Skip-to-main content for screen readers
 
 ## Technical Notes
 - All features work independently on their respective pages
@@ -57,6 +75,21 @@ Manage multiple alarms from the dedicated alarm page:
 - Settings are saved locally in your browser
 - No account required
 - Works offline after initial load
+
+## Accessibility
+- Keyboard navigation support
+- ARIA labels for all interactive elements
+- High contrast color scheme
+- Screen reader compatible
+- Skip navigation link
+
+## Browser Support
+- Works on all modern browsers
+- Chrome (recommended)
+- Firefox
+- Safari
+- Edge
+- Mobile browsers
 
 ## Support
 For assistance or to report issues, please contact us through our support channels.

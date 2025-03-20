@@ -82,12 +82,22 @@
     <main id="main">
       <section class="section">
         <div class="clock-container">
+          <h1>World Clock - Online Time Display</h1>
+          
+          <h2>Global Time Zone Search</h2>
           <div class="search-container">
             <input type="text" id="citySearch" class="city-search" placeholder="Search for a city..." aria-label="Search for a city">
             <div id="citySearchResults" class="search-results" style="display: none;"></div>
           </div>
-          <h1 id="clock">00:00:00</h1>
+
+          <h2>Current Time &amp; Date</h2>
+          <div id="clock" class="clock-display">00:00:00</div>
           <div id="date" class="date-display"></div>
+
+          <h2>Timezone Information</h2>
+          <div id="timezone-info" class="timezone-info">
+            Your local timezone: <span id="local-timezone"></span>
+          </div>
         </div>
       </section>
     </main>
@@ -118,7 +128,13 @@
         <span class="copyright">&copy; 2024 bbclock. All rights reserved.</span>
       </div>
     </footer>
-
+    
+    <div id="alertContainer" class="alert-container"></div>
+    
     <script src="script.js"></script>
+    <audio id="alarmSound" loop>
+      <source src="https://cdn.pixabay.com/audio/2021/08/04/audio_c668156e64.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
 </body>
 </html>

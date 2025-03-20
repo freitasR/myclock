@@ -52,6 +52,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize shared components
     initializeSocialSharing();
     setActivePageIndicator();
+    initializeAlarms(); // Initialize alarms on every page
+    initializeAudio(); // Initialize audio on every page
+    checkAlarmState(); // Check if alarm should be showing
     
     // Initialize features based on the current page
     switch(currentPage) {
@@ -65,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
             initializeTimer();
             break;
         case 'alarm.html':
-            initializeAlarm();
+            updateAlarmList(); // Only update the visual list on alarm page
             break;
         case 'help.html':
             loadHelpContent();
@@ -117,6 +120,12 @@ function initializeClock() {
     const citySearch = document.getElementById('citySearch');
     if (citySearch) {
         citySearch.addEventListener('input', handleCitySearch);
+    }
+
+    // Display local timezone
+    const localTimezoneElement = document.getElementById('local-timezone');
+    if (localTimezoneElement) {
+        localTimezoneElement.textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
     }
 }
 
@@ -226,9 +235,20 @@ function updateClock() {
 }
 
 // Alarm functionality
-function initializeAlarm() {
+function initializeAlarms() {
+    // Create audio element if it doesn't exist on the current page
+    if (!document.getElementById('alarmSound')) {
+        const audioElement = document.createElement('audio');
+        audioElement.id = 'alarmSound';
+        audioElement.loop = true;
+        const sourceElement = document.createElement('source');
+        sourceElement.src = 'https://cdn.pixabay.com/audio/2021/08/04/audio_c668156e64.mp3';
+        sourceElement.type = 'audio/mpeg';
+        audioElement.appendChild(sourceElement);
+        document.body.appendChild(audioElement);
+    }
+    
     loadSavedAlarms();
-    initializeAudio();
 }
 
 function loadSavedAlarms() {
@@ -262,7 +282,10 @@ function loadSavedAlarms() {
         };
     });
     
-    updateAlarmList();
+    // Only update the visual list if we're on the alarm page
+    if (window.location.pathname.endsWith('alarm.html')) {
+        updateAlarmList();
+    }
 }
 
 function saveAlarms() {
@@ -346,59 +369,100 @@ function stopAlarmAll() {
     saveAlarms();
 }
 
-function playAlarm() {
-    if (!alarmSound) {
-        alarmSound = document.getElementById('alarmSound');
+// Enhanced alarm playback function with page check
+async function playAlarm() {
+    // Only play sound if we're on alarm.html
+    const isAlarmPage = window.location.pathname.endsWith('alarm.html');
+    
+    if (isAlarmPage && !alarmSound) {
+        await initializeAudio();
     }
-    if (alarmSound) {
-        alarmSound.currentTime = 0;
-        isAlarmRinging = true;
-        const playPromise = alarmSound.play();
-        if (playPromise) {
-            playPromise.catch(error => {
-                console.error('Error playing alarm:', error);
-                isAlarmRinging = false;
-                showVisualAlert();
-            });
+
+    if (isAlarmPage && alarmSound) {
+        try {
+            alarmSound.currentTime = 0;
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (AudioContext) {
+                const audioContext = new AudioContext();
+                await audioContext.resume();
+            }
+            await alarmSound.play();
+            isAlarmRinging = true;
+        } catch (error) {
+            console.error('Error playing alarm:', error);
         }
-    } else {
-        showVisualAlert();
     }
+
+    showVisualAlert();
 }
 
+// Enhanced visual alert
+function showVisualAlert() {
+    const alertContainer = document.getElementById('alertContainer');
+    if (!alertContainer) return;
+
+    alertContainer.innerHTML = '';
+    const visualAlert = document.createElement('div');
+    visualAlert.className = 'visual-alert';
+    
+    // Only show stop button on alarm page
+    const isAlarmPage = window.location.pathname.endsWith('alarm.html');
+    visualAlert.innerHTML = `
+        ⏰ ALARM!
+        ${isAlarmPage ? '<button onclick="stopAlarm()">Stop Alarm</button>' : ''}
+    `;
+
+    alertContainer.appendChild(visualAlert);
+}
+
+// Improved stop alarm function
 function stopAlarm() {
-    if (!alarmSound) {
-        alarmSound = document.getElementById('alarmSound');
-    }
     if (alarmSound) {
         alarmSound.pause();
         alarmSound.currentTime = 0;
     }
+    
     isAlarmRinging = false;
-    const stopButton = document.getElementById('stopAlarm');
-    if (stopButton) {
-        stopButton.style.display = 'none';
+    const alertContainer = document.getElementById('alertContainer');
+    if (alertContainer) {
+        alertContainer.innerHTML = '';
     }
 }
 
 function testSound() {
     if (!alarmSound) {
         alarmSound = document.getElementById('alarmSound');
+        if (!alarmSound) {
+            initializeAudio();
+        }
     }
+
     if (alarmSound) {
+        alarmSound.pause();
         alarmSound.currentTime = 0;
-        const playPromise = alarmSound.play();
-        if (playPromise) {
-            playPromise.then(() => {
+        
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (AudioContext) {
+            const audioContext = new AudioContext();
+            audioContext.resume().then(() => {
+                alarmSound.play().then(() => {
+                    setTimeout(() => {
+                        if (!isAlarmRinging) {
+                            alarmSound.pause();
+                            alarmSound.currentTime = 0;
+                        }
+                    }, 2000);
+                }).catch(console.error);
+            });
+        } else {
+            alarmSound.play().then(() => {
                 setTimeout(() => {
                     if (!isAlarmRinging) {
                         alarmSound.pause();
                         alarmSound.currentTime = 0;
                     }
                 }, 2000);
-            }).catch(error => {
-                console.error('Error testing alarm sound:', error);
-            });
+            }).catch(console.error);
         }
     }
 }
@@ -842,6 +906,7 @@ function shareOnLinkedIn() {
 // Add visibility change and error handling
 document.addEventListener('visibilitychange', function() {
     if (document.visibilityState === 'visible') {
+        checkAlarmState();
         const currentPage = window.location.pathname.split('/').pop() || 'index.html';
         switch(currentPage) {
             case 'index.html':
@@ -949,29 +1014,167 @@ function handleCitySearch(event) {
     });
 }
 
-// Audio initialization with permission handling
+// Improve audio initialization with better error handling and state management
 async function initializeAudio() {
-    alarmSound = document.getElementById('alarmSound');
-    if (!alarmSound) return;
-
     try {
-        await alarmSound.load();
+        alarmSound = document.getElementById('alarmSound');
+        if (!alarmSound) {
+            alarmSound = new Audio('https://cdn.pixabay.com/audio/2021/08/04/audio_c668156e64.mp3');
+            alarmSound.id = 'alarmSound';
+            alarmSound.loop = true;
+            document.body.appendChild(alarmSound);
+        }
+
+        // Force load the audio
+        await new Promise((resolve, reject) => {
+            alarmSound.addEventListener('loadeddata', resolve);
+            alarmSound.addEventListener('error', reject);
+            alarmSound.load();
+        });
+
+        // Initialize audio context and try to get permission
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (AudioContext) {
+            const audioContext = new AudioContext();
+            await audioContext.resume();
+        }
+
+        // Pre-load and unlock audio on iOS
+        const unlockAudio = () => {
+            alarmSound.play().then(() => {
+                alarmSound.pause();
+                alarmSound.currentTime = 0;
+                document.removeEventListener('click', unlockAudio);
+                document.removeEventListener('touchstart', unlockAudio);
+            }).catch(console.warn);
+        };
+        document.addEventListener('click', unlockAudio, { once: true });
+        document.addEventListener('touchstart', unlockAudio, { once: true });
+
+        return true;
     } catch (error) {
-        console.warn('Audio loading error:', error);
+        console.warn('Audio initialization error:', error);
+        return false;
     }
 }
 
+// Enhanced alarm playback function
+async function playAlarm() {
+    if (!alarmSound) {
+        await initializeAudio();
+    }
+
+    if (alarmSound) {
+        try {
+            // Ensure we start from the beginning
+            alarmSound.currentTime = 0;
+            
+            // Try to play using AudioContext if available
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (AudioContext) {
+                const audioContext = new AudioContext();
+                await audioContext.resume();
+            }
+            
+            // Play the sound
+            await alarmSound.play();
+            isAlarmRinging = true;
+            
+            // Show the alert with the stop button
+            showVisualAlert();
+        } catch (error) {
+            console.error('Error playing alarm:', error);
+            // Still show visual alert even if audio fails
+            showVisualAlert();
+        }
+    } else {
+        showVisualAlert();
+    }
+}
+
+// Improved stop alarm function
+function stopAlarm() {
+    if (alarmSound) {
+        alarmSound.pause();
+        alarmSound.currentTime = 0;
+    }
+    
+    isAlarmRinging = false;
+
+    // Hide visual alert
+    const alertContainer = document.getElementById('alertContainer');
+    if (alertContainer) {
+        alertContainer.innerHTML = '';
+    }
+}
+
+// Enhanced visual alert
 function showVisualAlert() {
-    const alertId = 'visual-alert';
-    if (document.getElementById(alertId)) return;
-    
+    const alertContainer = document.getElementById('alertContainer');
+    if (!alertContainer) return;
+
+    // Clear any existing alerts
+    alertContainer.innerHTML = '';
+
     const visualAlert = document.createElement('div');
-    visualAlert.id = alertId;
     visualAlert.className = 'visual-alert';
-    visualAlert.textContent = '⏰ ALARM!';
-    document.body.appendChild(visualAlert);
-    
-    setTimeout(() => {
-        visualAlert.remove();
-    }, 5000);
+    visualAlert.innerHTML = `
+        ⏰ ALARM!
+        <button onclick="stopAlarm()">Stop Alarm</button>
+    `;
+
+    alertContainer.appendChild(visualAlert);
+}
+
+// Check alarm state when page visibility changes
+document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'visible') {
+        if (isAlarmRinging && alarmSound) {
+            // Restart alarm sound if it was playing
+            playAlarm();
+        }
+    }
+});
+
+// Test sound function with better error handling
+async function testSound() {
+    if (!alarmSound) {
+        await initializeAudio();
+    }
+
+    if (alarmSound) {
+        try {
+            alarmSound.currentTime = 0;
+            await alarmSound.play();
+            
+            // Stop after 2 seconds if not already stopped
+            setTimeout(() => {
+                if (!isAlarmRinging) {
+                    alarmSound.pause();
+                    alarmSound.currentTime = 0;
+                }
+            }, 2000);
+        } catch (error) {
+            console.error('Error testing sound:', error);
+            alert('Could not play sound. Please check your browser settings.');
+        }
+    }
+}
+
+// Initialize alarms on page load
+document.addEventListener('DOMContentLoaded', function() {
+    initializeAudio().then(() => {
+        loadSavedAlarms();
+        checkAlarmState();
+    });
+});
+
+// Check if alarm should be playing (on page load or navigation)
+function checkAlarmState() {
+    if (isAlarmRinging) {
+        showVisualAlert();
+        if (alarmSound && alarmSound.paused) {
+            playAlarm();
+        }
+    }
 }

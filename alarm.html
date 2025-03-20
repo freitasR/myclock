@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Set multiple alarms with customizable times - part of bbclock's time management tools">
-  <meta name="keywords" content="alarm clock, online alarm, digital alarm, multiple alarms">
+  <meta name="description" content="Online alarm clock with multiple alarms and custom alert sounds - part of bbclock's time management tools">
+  <meta name="keywords" content="alarm clock, online alarm, multiple alarms, custom alerts">
   <meta name="robots" content="index, follow">
   <meta name="author" content="bbclock">
   
   <!-- OpenGraph Meta Tags -->
-  <meta property="og:title" content="bbclock - Multiple Alarms">
-  <meta property="og:description" content="Set and manage multiple alarms with customizable times and audio alerts">
+  <meta property="og:title" content="bbclock - Online Alarm Clock">
+  <meta property="og:description" content="Set multiple alarms with custom alert sounds">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://bbclock.com/alarm.html">
   <meta property="og:image" content="https://bbclock.com/favicon-svg.svg">
@@ -19,8 +19,8 @@
   
   <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="bbclock - Multiple Alarms">
-  <meta name="twitter:description" content="Set and manage multiple alarms with customizable times and audio alerts">
+  <meta name="twitter:title" content="bbclock - Online Alarm Clock">
+  <meta name="twitter:description" content="Set multiple alarms with custom alert sounds">
   <meta name="twitter:image" content="https://bbclock.com/favicon-svg.svg">
   
   <link rel="canonical" href="https://bbclock.com/alarm.html" />
@@ -31,6 +31,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <a href="#main" class="skip-to-main">Skip to main content</a>
     <header>
       <div class="header-content">
         <div class="site-name">bbclock</div>
@@ -44,7 +45,7 @@
       </div>
     </header>
 
-    <main>
+    <main id="main">
       <section class="section">
         <div class="alarm-container">
           <div class="timer-input-container">
@@ -54,13 +55,15 @@
             <span>:</span>
             <input type="number" id="alarmSeconds" min="0" max="59" placeholder="SS" aria-label="Seconds">
           </div>
-          <button onclick="setAlarm()" aria-label="Set new alarm">Set Alarm</button>
-          <button onclick="stopAlarmAll()" aria-label="Cancel all alarms">Cancel All Alarms</button>
-          <button onclick="testSound()" aria-label="Test alarm sound">Test Sound</button>
-          <button onclick="stopAlarm()" id="stopAlarm" style="display: none;" aria-label="Stop current alarm">Stop Alarm</button>
-          <div id="alarmList" class="alarm-list" aria-live="polite">
-            <!-- Alarm list will display here -->
+          
+          <div class="controls">
+            <button onclick="setAlarm()" aria-label="Set alarm">Set Alarm</button>
+            <button onclick="stopAlarm()" aria-label="Stop alarm sound">Stop Sound</button>
+            <button onclick="testSound()" aria-label="Test alarm sound">Test Sound</button>
+            <button onclick="stopAlarmAll()" aria-label="Cancel all alarms">Cancel All</button>
           </div>
+
+          <div id="alarmList" class="alarm-list"></div>
         </div>
       </section>
     </main>
@@ -91,11 +94,13 @@
         <span class="copyright">&copy; 2024 bbclock. All rights reserved.</span>
       </div>
     </footer>
-
+    
+    <div id="alertContainer" class="alert-container"></div>
+    
     <script src="script.js"></script>
     <audio id="alarmSound" loop>
-        <source src="https://cdn.pixabay.com/audio/2021/08/04/audio_c668156e64.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-      </audio>
+      <source src="https://cdn.pixabay.com/audio/2021/08/04/audio_c668156e64.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
 </body>
 </html>
