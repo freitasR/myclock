@@ -405,12 +405,7 @@ function showVisualAlert() {
     const visualAlert = document.createElement('div');
     visualAlert.className = 'visual-alert';
     
-    // Only show stop button on alarm page
-    const isAlarmPage = window.location.pathname.endsWith('alarm.html');
-    visualAlert.innerHTML = `
-        ⏰ ALARM!
-        ${isAlarmPage ? '<button onclick="stopAlarm()">Stop Alarm</button>' : ''}
-    `;
+    visualAlert.innerHTML = `⏰ ALARM!`;
 
     alertContainer.appendChild(visualAlert);
 }
@@ -1120,7 +1115,6 @@ function showVisualAlert() {
     visualAlert.className = 'visual-alert';
     visualAlert.innerHTML = `
         ⏰ ALARM!
-        <button onclick="stopAlarm()">Stop Alarm</button>
     `;
 
     alertContainer.appendChild(visualAlert);
